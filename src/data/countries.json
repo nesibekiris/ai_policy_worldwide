@@ -1,0 +1,427 @@
+{
+  "countries": [
+    {
+      "id": "usa",
+      "name": "United States",
+      "flag": "🇺🇸",
+      "status": "implementing",
+      "approach": "innovation",
+      "category": "major-power",
+      "position": { "top": "35%", "left": "20%" },
+      "statusText": "Implementing - Innovation Dominance Strategy",
+      "approachText": "Innovation-First",
+      "legislation": [
+        {
+          "name": "America's AI Action Plan (July 2025)",
+          "description": "90+ policy actions across innovation, infrastructure, and international diplomacy"
+        },
+        {
+          "name": "Executive Order 14148 (January 2025)",
+          "description": "\"Removing Barriers to American Leadership in AI\" - revoked Biden's comprehensive approach"
+        },
+        {
+          "name": "NIST AI Risk Management Framework",
+          "description": "Voluntary framework widely referenced despite deregulatory pivot"
+        }
+      ],
+      "features": [
+        { "icon": "⚖️", "text": "Federal Penalties", "value": "None" },
+        { "icon": "🏢", "text": "Coordination", "value": "White House" },
+        { "icon": "📈", "text": "Policy Actions", "value": "90+" },
+        { "icon": "🏛️", "text": "State Authority", "value": "Preserved" }
+      ],
+      "highlights": [
+        "Market-first approach emphasizing deregulation and export promotion",
+        "Congress defeated federal preemption efforts 99-1, preserving state authority",
+        "Heavy reliance on voluntary standards and existing legal frameworks",
+        "Penalties enforced by existing agencies (FTC, FDA) under current laws"
+      ],
+      "investment": null,
+      "penalties": "None (Federal)",
+      "details": "Market-first approach emphasizing deregulation and export promotion. States retain authority after Congress defeated federal preemption 99-1."
+    },
+    {
+      "id": "eu",
+      "name": "European Union",
+      "flag": "🇪🇺",
+      "status": "active",
+      "approach": "comprehensive",
+      "category": "major-power",
+      "position": { "top": "30%", "left": "50%" },
+      "statusText": "Active - World's First Comprehensive AI Law",
+      "approachText": "Comprehensive Regulation",
+      "legislation": [
+        {
+          "name": "EU AI Act (Regulation 2024/1689)",
+          "description": "World's first comprehensive AI regulatory framework with four-tier risk classification system"
+        },
+        {
+          "name": "General-Purpose AI Code of Practice",
+          "description": "Detailed compliance guidance for frontier AI models (effective July 2025)"
+        }
+      ],
+      "features": [
+        { "icon": "⚖️", "text": "Max Penalties", "value": "€35M or 7%" },
+        { "icon": "🏢", "text": "EU AI Office", "value": "140+ Staff" },
+        { "icon": "📊", "text": "Risk Tiers", "value": "4 Levels" },
+        { "icon": "🌍", "text": "Global Standard", "value": "First" }
+      ],
+      "highlights": [
+        "Human-centric AI prioritizing fundamental rights and democracy",
+        "Mandatory conformity assessments for high-risk AI systems",
+        "GPAI models >10^25 FLOPs require systemic risk evaluations",
+        "Integration with existing product safety regulations"
+      ],
+      "investment": null,
+      "penalties": "€35M or 7% of global turnover",
+      "details": "Four-tier risk classification system with human-centric AI prioritizing fundamental rights and democracy."
+    },
+    {
+      "id": "china",
+      "name": "China",
+      "flag": "🇨🇳",
+      "status": "active",
+      "approach": "state-led",
+      "category": "major-power",
+      "position": { "top": "35%", "left": "75%" },
+      "statusText": "Active - State-Led Comprehensive Control",
+      "approachText": "State-Led",
+      "legislation": [
+        {
+          "name": "New Generation AI Development Plan (2017)",
+          "description": "National strategy targeting global AI leadership by 2030"
+        },
+        {
+          "name": "Interim Measures for Generative AI Services (2023)",
+          "description": "First specific regulation on generative AI with security assessment requirements"
+        },
+        {
+          "name": "AI Content Labeling Rules (2025)",
+          "description": "Mandatory labeling of all AI-generated content effective September 2025"
+        }
+      ],
+      "features": [
+        { "icon": "📱", "text": "Registered Services", "value": "238" },
+        { "icon": "🏢", "text": "Lead Agency", "value": "CAC" },
+        { "icon": "🎯", "text": "Target Year", "value": "2030" },
+        { "icon": "🔒", "text": "Content Control", "value": "Active" }
+      ],
+      "highlights": [
+        "Algorithm registry system with 238 generative AI services filed",
+        "Integration with social credit and data governance systems",
+        "\"Crossroads Era\" triggered by DeepSeek's breakthrough in AI capabilities",
+        "Mandatory AI content labeling effective September 2025"
+      ],
+      "investment": null,
+      "penalties": "Variable enforcement",
+      "details": "Algorithm registry with 238 services, content control, integration with social credit systems. \"Crossroads Era\" with DeepSeek breakthrough."
+    },
+    {
+      "id": "japan",
+      "name": "Japan",
+      "flag": "🇯🇵",
+      "status": "voluntary",
+      "approach": "innovation",
+      "category": "regional-leader",
+      "position": { "top": "40%", "left": "85%" },
+      "statusText": "Voluntary - Light-Touch Innovation Framework",
+      "approachText": "Innovation-First",
+      "legislation": [
+        {
+          "name": "AI Promotion Act (May 2025)",
+          "description": "First AI-specific legislation focused entirely on promoting innovation without restrictions"
+        }
+      ],
+      "features": [
+        { "icon": "⚖️", "text": "Penalties", "value": "None" },
+        { "icon": "🏢", "text": "Leadership", "value": "AI Strategy HQ" },
+        { "icon": "🌏", "text": "G7 Leadership", "value": "Hiroshima AI" },
+        { "icon": "🤝", "text": "Approach", "value": "Cooperative" }
+      ],
+      "highlights": [
+        "Technological neutrality relying on existing sector-specific laws",
+        "Leads G7 Hiroshima AI Process establishing international guiding principles",
+        "No penalties, emphasizing cooperation between government and industry"
+      ],
+      "investment": null,
+      "penalties": "None",
+      "details": "First AI-specific legislation focused entirely on promoting innovation. Leads G7 Hiroshima AI Process."
+    },
+    {
+      "id": "south-korea",
+      "name": "South Korea",
+      "flag": "🇰🇷",
+      "status": "planning",
+      "approach": "balanced",
+      "category": "regional-leader",
+      "position": { "top": "38%", "left": "82%" },
+      "statusText": "Planning - First Comprehensive APAC Legislation",
+      "approachText": "Balanced",
+      "legislation": [
+        {
+          "name": "AI Framework Act (December 2024)",
+          "description": "First comprehensive AI legislation in Asia-Pacific, effective January 2026"
+        }
+      ],
+      "features": [
+        { "icon": "⚖️", "text": "Max Penalties", "value": "$21,000" },
+        { "icon": "🎯", "text": "AI Deployment", "value": "70% by 2030" },
+        { "icon": "🏆", "text": "Global Ranking", "value": "Top 3 Goal" },
+        { "icon": "🏢", "text": "Committee", "value": "Presidential" }
+      ],
+      "highlights": [
+        "Risk-based framework distinguishing \"high-impact AI\" in critical sectors",
+        "Integration of AI governance with data protection reform",
+        "\"Top 3 Global AI Strategy\" backed by significant government investment"
+      ],
+      "investment": null,
+      "penalties": "Up to $21,000",
+      "details": "Risk-based framework targeting 70% corporate AI deployment by 2030. Integration with data protection reform."
+    },
+    {
+      "id": "singapore",
+      "name": "Singapore",
+      "flag": "🇸🇬",
+      "status": "voluntary",
+      "approach": "balanced",
+      "category": "regional-leader",
+      "position": { "top": "55%", "left": "77%" },
+      "statusText": "Voluntary - Technical Standards Leadership",
+      "approachText": "Balanced",
+      "legislation": [
+        {
+          "name": "Model AI Governance Framework (2024)",
+          "description": "Covers both traditional and generative AI with nine trust dimensions"
+        },
+        {
+          "name": "AI Verify Foundation",
+          "description": "Global open-source community for AI testing tool development"
+        }
+      ],
+      "features": [
+        { "icon": "🧪", "text": "Testing Tools", "value": "AI Verify" },
+        { "icon": "📏", "text": "Trust Dimensions", "value": "9" },
+        { "icon": "🌍", "text": "Global Pilot", "value": "Feb 2025" },
+        { "icon": "🤝", "text": "Countries", "value": "9 APAC" }
+      ],
+      "highlights": [
+        "World's first comprehensive AI governance testing toolkit",
+        "Successful mapping to US NIST frameworks demonstrating international interoperability",
+        "Global AI Assurance Pilot with multicultural red teaming exercises"
+      ],
+      "investment": null,
+      "penalties": "None (Voluntary)",
+      "details": "World's first comprehensive AI governance testing toolkit. Global AI Assurance Pilot with 9 APAC countries."
+    },
+    {
+      "id": "uk",
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "status": "implementing",
+      "approach": "innovation",
+      "category": "regional-leader",
+      "position": { "top": "28%", "left": "48%" },
+      "statusText": "Implementing - Pro-Innovation Positioning",
+      "approachText": "Innovation-First",
+      "legislation": [
+        {
+          "name": "AI Opportunities Action Plan (January 2025)",
+          "description": "Emphasizing economic growth over regulatory constraints"
+        }
+      ],
+      "features": [
+        { "icon": "🚀", "text": "AI Growth Zones", "value": "Dedicated" },
+        { "icon": "⚖️", "text": "New AI Laws", "value": "None" },
+        { "icon": "📋", "text": "Core Principles", "value": "5" },
+        { "icon": "🔄", "text": "Brexit Strategy", "value": "Autonomy" }
+      ],
+      "highlights": [
+        "Post-Brexit regulatory autonomy distinct from EU AI Act",
+        "Cross-sector framework relying on existing regulators",
+        "AI Growth Zones with enhanced infrastructure support"
+      ],
+      "investment": {
+        "title": "Investment Commitment",
+        "amount": "£45+ Billion",
+        "details": "£20B government + £25B+ private sector commitment"
+      },
+      "penalties": "None (No new AI laws)",
+      "details": "Post-Brexit regulatory autonomy. AI Growth Zones with enhanced infrastructure. Cross-sector framework."
+    },
+    {
+      "id": "canada",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "status": "implementing",
+      "approach": "balanced",
+      "category": "regional-leader",
+      "position": { "top": "25%", "left": "22%" },
+      "statusText": "Implementing - Public Service Modernization",
+      "approachText": "Balanced",
+      "legislation": [
+        {
+          "name": "AI Strategy for Federal Public Service 2025-2027",
+          "description": "First comprehensive AI strategy for federal government operations (March 2025)"
+        },
+        {
+          "name": "Directive on Automated Decision-Making",
+          "description": "Mandatory Algorithmic Impact Assessments with peer review for higher-risk systems"
+        }
+      ],
+      "features": [
+        { "icon": "🏛️", "text": "Government Focus", "value": "Federal" },
+        { "icon": "👥", "text": "Consultations", "value": "84 Sessions" },
+        { "icon": "🤝", "text": "Indigenous", "value": "Partnership" },
+        { "icon": "📊", "text": "Impact Assess.", "value": "Mandatory" }
+      ],
+      "highlights": [
+        "Human-centric collaborative governance approach",
+        "Most advanced government AI accountability framework globally",
+        "Federal-provincial coordination while preserving jurisdictional boundaries"
+      ],
+      "investment": null,
+      "penalties": "Administrative (Government focus)",
+      "details": "Most advanced government AI accountability framework globally. 84 stakeholder consultations with Indigenous partnership."
+    },
+    {
+      "id": "australia",
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "status": "active",
+      "approach": "balanced",
+      "category": "regional-leader",
+      "position": { "top": "75%", "left": "85%" },
+      "statusText": "Active - Mandatory Accountability Standards",
+      "approachText": "Balanced",
+      "legislation": [
+        {
+          "name": "Policy for Responsible Use of AI in Government",
+          "description": "Mandatory requirements for all Commonwealth entities (September 2024)"
+        },
+        {
+          "name": "National Framework for Assurance of AI in Government",
+          "description": "Consistent approach across federal, state, and territory levels"
+        }
+      ],
+      "features": [
+        { "icon": "👤", "text": "Officials", "value": "Accountable" },
+        { "icon": "📊", "text": "Transparency", "value": "Mandatory" },
+        { "icon": "🏛️", "text": "Coverage", "value": "All Levels" },
+        { "icon": "📅", "text": "Deadlines", "value": "Clear" }
+      ],
+      "highlights": [
+        "Government as exemplar in responsible AI use",
+        "Mandatory designation of Accountable Officials",
+        "Public AI transparency statements with clear reporting requirements"
+      ],
+      "investment": null,
+      "penalties": "Administrative enforcement",
+      "details": "Mandatory Accountable Officials and public transparency statements. Consistent federal-state framework."
+    },
+    {
+      "id": "india",
+      "name": "India",
+      "flag": "🇮🇳",
+      "status": "implementing",
+      "approach": "balanced",
+      "category": "emerging-leader",
+      "position": { "top": "45%", "left": "70%" },
+      "statusText": "Implementing - Inclusive Development Approach",
+      "approachText": "Balanced",
+      "legislation": [
+        {
+          "name": "IndiaAI Mission (March 2024)",
+          "description": "Emphasizing \"#AIForAll\" inclusive development approach"
+        },
+        {
+          "name": "AI Governance Guidelines (January 2025)",
+          "description": "Recommend Inter-Ministerial AI Coordination Committee"
+        }
+      ],
+      "features": [
+        { "icon": "💻", "text": "Compute Units", "value": "18,000" },
+        { "icon": "🌍", "text": "Position", "value": "AI Garage" },
+        { "icon": "🗣️", "text": "Models", "value": "Multilingual" },
+        { "icon": "⚖️", "text": "Focus", "value": "Harm Mitigation" }
+      ],
+      "highlights": [
+        "Indigenous AI model development with multilingual capabilities",
+        "Positioning as \"AI Garage\" for developing world applications",
+        "Whole-of-government approach with harm mitigation as core principle"
+      ],
+      "investment": {
+        "title": "IndiaAI Mission Investment",
+        "amount": "₹10,372 Crore",
+        "details": "One of the largest national AI investments globally"
+      },
+      "penalties": "Focus on harm mitigation",
+      "details": "#AIForAll approach. 18,000 AI compute units. Positioning as \"AI Garage\" for developing world."
+    },
+    {
+      "id": "brazil",
+      "name": "Brazil",
+      "flag": "🇧🇷",
+      "status": "planning",
+      "approach": "comprehensive",
+      "category": "emerging-leader",
+      "position": { "top": "70%", "left": "35%" },
+      "statusText": "Planning - Risk-Based Enforcement Model",
+      "approachText": "Comprehensive",
+      "legislation": [
+        {
+          "name": "Senate-Approved AI Bill (December 2024)",
+          "description": "Risk-based framework similar to EU AI Act with three tiers"
+        }
+      ],
+      "features": [
+        { "icon": "⚖️", "text": "Max Penalties", "value": "R$50M or 2%" },
+        { "icon": "🏢", "text": "Authority", "value": "National AI" },
+        { "icon": "📊", "text": "Risk Tiers", "value": "3 Levels" },
+        { "icon": "🧪", "text": "Sandboxes", "value": "Regulatory" }
+      ],
+      "highlights": [
+        "Risk-based framework with significant enforcement mechanisms",
+        "Regulatory sandboxes for controlled experimentation",
+        "Santos Dumont supercomputer development program"
+      ],
+      "investment": null,
+      "penalties": "R$50M or 2% revenue",
+      "details": "EU AI Act-similar framework with 3 risk tiers. Regulatory sandboxes for experimentation."
+    },
+    {
+      "id": "uae",
+      "name": "United Arab Emirates",
+      "flag": "🇦🇪",
+      "status": "active",
+      "approach": "state-led",
+      "category": "emerging-leader",
+      "position": { "top": "45%", "left": "60%" },
+      "statusText": "Active - Government-Led Innovation",
+      "approachText": "State-Led",
+      "legislation": [
+        {
+          "name": "National AI Strategy 2031",
+          "description": "Comprehensive framework with world's first Minister of State for AI (2017)"
+        },
+        {
+          "name": "International Stance on AI Policy (October 2024)",
+          "description": "Six core principles for international AI governance"
+        }
+      ],
+      "features": [
+        { "icon": "👤", "text": "AI Minister", "value": "World's 1st" },
+        { "icon": "📊", "text": "Principles", "value": "6 Core" },
+        { "icon": "⚡", "text": "Legislation", "value": "70% Faster" },
+        { "icon": "📋", "text": "ISO Standard", "value": "42001:2023" }
+      ],
+      "highlights": [
+        "Regulatory Intelligence Office using AI to draft legislation",
+        "Early adoption of ISO/IEC 42001:2023 AI management systems standard",
+        "Government-led comprehensive planning with 70% acceleration targets"
+      ],
+      "investment": null,
+      "penalties": "Government coordination",
+      "details": "World's first AI Minister (2017). Regulatory Intelligence Office using AI to draft legislation 70% faster."
+    }
+  ]
+}
