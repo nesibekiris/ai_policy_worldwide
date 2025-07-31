@@ -591,4 +591,21 @@ body {
   *,
   *::before,
   *::after {
-    animation-duration: 0.
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .copyright,
+  .tooltip {
+    display: none;
+  }
+  
+  .country-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
