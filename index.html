@@ -559,6 +559,41 @@
         </div>
     </div>
 </div>
+
+        <!-- Comparison Section -->
+        <div class="comparison-section">
+            <h2 class="comparison-title">🔍 Compare Governance Models</h2>
+            <p class="comparison-subtitle">Click to select countries for side-by-side comparison</p>
+            
+            <div class="comparison-selector">
+                <button class="compare-btn" data-country="eu">🇪🇺 EU</button>
+                <button class="compare-btn" data-country="usa">🇺🇸 USA</button>
+                <button class="compare-btn" data-country="china">🇨🇳 China</button>
+                <button class="compare-btn" data-country="uk">🇬🇧 UK</button>
+                <button class="compare-btn" data-country="japan">🇯🇵 Japan</button>
+                <button class="compare-btn" data-country="india">🇮🇳 India</button>
+            </div>
+            
+            <div class="comparison-container">
+                <div class="comparison-card" id="compare-1">
+                    <div class="comparison-placeholder">
+                        <p>Select first country to compare</p>
+                    </div>
+                </div>
+                
+                <div class="comparison-vs">VS</div>
+                
+                <div class="comparison-card" id="compare-2">
+                    <div class="comparison-placeholder">
+                        <p>Select second country to compare</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tooltip" id="tooltip"></div>
+        
+        <!-- Then your country-details section continues below -->
         
         <div class="country-details">
             <!-- European Union -->
