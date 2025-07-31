@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Global AI Governance World Map 2025</title>
+    <title>Global AI Governance Map 2025 - Interactive Policy Tracker</title>
+    <meta name="description" content="Track AI policies, regulations, and governance frameworks across major nations worldwide. Interactive map and timeline of global AI legislation.">
+    
     <style>
         * {
             margin: 0;
@@ -19,21 +20,68 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            
         }
-        
-        .container {
-            max-width: 1800px;
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #5a67d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        .nav-links a.active {
+            color: #00d4ff;
+            font-weight: 700;
+        }
+
+        /* Header */
         .header {
             text-align: center;
-            padding: 40px 0;
+            padding: 120px 20px 60px;
             position: relative;
         }
-        
+
         .header h1 {
             font-size: 4em;
             font-weight: 900;
@@ -44,92 +92,159 @@
             margin-bottom: 20px;
             letter-spacing: -2px;
         }
-        
+
         .header .subtitle {
             font-size: 1.4em;
             color: #cbd5e0;
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
-        .copyright {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+
+        .copyright-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
             background: rgba(0, 0, 0, 0.8);
-            padding: 12px 18px;
             border-radius: 25px;
             font-size: 0.9em;
             color: #00d4ff;
             border: 2px solid #00d4ff;
             backdrop-filter: blur(10px);
-            z-index: 1000;
         }
-        
-        .copyright a {
+
+        .copyright-badge a {
             color: #00d4ff;
             text-decoration: none;
             font-weight: 700;
         }
-        
-        .legends-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 40px 0;
+
+        .copyright-badge a:hover {
+            text-decoration: underline;
         }
-        
-        .legend {
-            padding: 25px;
+
+        /* Quick Stats Bar */
+        .stats-bar {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 0 auto 60px;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
         }
-        
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #00d4ff;
+            display: block;
+        }
+
+        .stat-label {
+            color: #a0aec0;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .map-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .map-header h2 {
+            font-size: 2.5em;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .map-header p {
+            color: #cbd5e0;
+            font-size: 1.1em;
+        }
+
+        /* Legends Container */
+        .legends-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0 auto 30px;
+            max-width: 800px;
+        }
+
+        .legend {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+        }
+
         .legend-title {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             color: #00d4ff;
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: 700;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 8px;
-            margin-bottom: 8px;
+            gap: 8px;
+            padding: 4px;
+            margin-bottom: 4px;
+            font-size: 0.85em;
         }
-        
+
         .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
             flex-shrink: 0;
         }
-        
+
+        /* World Map Container */
         .world-map-container {
             position: relative;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 40px;
-            margin: 40px 0;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
+            margin-bottom: 40px;
         }
-        
+
         .world-map {
             width: 100%;
             height: 600px;
             position: relative;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI1MDAiIHZpZXdCb3g9IjAgMCAxMDAwIDUwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjMWExYzI5Ii8+Cjx0ZXh0IHg9IjUwMCIgeT0iMjUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3ODhhIiBmb250LXNpemU9IjI0Ij5Xb3JsZCBNYXAgTG9hZGluZy4uLjwvdGV4dD4KPC9zdmc+') center/cover no-repeat;
             border-radius: 15px;
             overflow: hidden;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibGFuZEZpbGwiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNGE1NTY4O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMyZDM3NDg7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICAKICA8IS0tIEJhY2tncm91bmQgLS0+CiAgPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjMWExYzI5Ii8+CiAgCiAgPCEtLSBXb3JsZCBNYXAgU2ltcGxpZmllZCBDb250aW5lbnRzIC0tPgogIDxnIG9wYWNpdHk9IjAuMyI+CiAgICA8IS0tIE5vcnRoIEFtZXJpY2EgLS0+CiAgICA8cGF0aCBkPSJNMTAwIDEwMCBMMzUwIDEwMCBMMzgwIDIyMCBMMzQwIDI4MCBMMjAwIDI3MCBMMTIwIDIwMCBaIiBmaWxsPSJ1cmwoI2xhbmRGaWxsKSIgc3Ryb2tlPSIjMDBkNGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNiIvPgogICAgCiAgICA8IS0tIFNvdXRoIEFtZXJpY2EgLS0+CiAgICA8cGF0aCBkPSJNMjUwIDMyMCBMMzMwIDMyMCBMMzUwIDUwMCBMMjcwIDUyMCBMMjMwIDQ0MCBaIiBmaWxsPSJ1cmwoI2xhbmRGaWxsKSIgc3Ryb2tlPSIjMDBkNGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNiIvPgogICAgCiAgICA8IS0tIEV1cm9wZSAtLT4KICAgIDxwYXRoIGQ9Ik01MDAgODAgTDYwMCA4MCBMNjEwIDE2MCA1MzAgMTcwIEw0OTAgMTQwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgICAKICAgIDwhLS0gQWZyaWNhIC0tPgogICAgPHBhdGggZD0iTTQ5MCAxOTAgTDYzMCAxOTAgTDY1MCA0NTAgTDU3MCA0NzAgTDUxMCA0MDAgWiIgZmlsbD0idXJsKCNsYW5kRmlsbCkiIHN0cm9rZT0iIzAwZDRmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICAgIAogICAgPCEtLSBBc2lhIC0tPgogICAgPHBhdGggZD0iTTYzMCA2MCBMOTUwIDYwIEwxMDAwIDI1MCA5NTAgMzAwIEw2NTAgMjUwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgICAKICAgIDwhLS0gQXVzdHJhbGlhIC0tPgogICAgPHBhdGggZD0iTTg4MCA0MDAgTDEwMDAgNDAwIEwxMDIwIDQ4MCA5MDAgNDkwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgPC9nPgogIAogIDwhLS0gR3JpZCBMaW5lcyAtLT4KICA8ZyBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMSI+CiAgICA8bGluZSB4MT0iMCIgeTE9IjE1MCIgeDI9IjEyMDAiIHkyPSIxNTAiLz4KICAgIDxsaW5lIHgxPSIwIiB5MT0iMzAwIiB4Mj0iMTIwMCIgeTI9IjMwMCIvPgogICAgPGxpbmUgeDE9IjAiIHkxPSI0NTAiIHgyPSIxMjAwIiB5Mj0iNDUwIi8+CiAgICA8bGluZSB4MT0iMzAwIiB5MT0iMCIgeDI9IjMwMCIgeTI9IjYwMCIvPgogICAgPGxpbmUgeDE9IjYwMCIgeTE9IjAiIHgyPSI2MDAiIHkyPSI2MDAiLz4KICAgIDxsaW5lIHgxPSI5MDAiIHkxPSIwIiB4Mj0iOTAwIiB5Mj0iNjAwIi8+CiAgPC9nPgo8L3N2Zz4=');
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1c29;
         }
-        
+
+        /* Country Markers */
         .country-marker {
             position: absolute;
             width: 40px;
@@ -145,24 +260,24 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             z-index: 10;
         }
-        
+
         .country-marker:hover {
             transform: scale(1.3);
             z-index: 20;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
-        
+
         .country-marker.active { background: linear-gradient(45deg, #48bb78, #38a169); }
         .country-marker.implementing { background: linear-gradient(45deg, #ed8936, #dd6b20); }
         .country-marker.planning { background: linear-gradient(45deg, #4299e1, #3182ce); }
         .country-marker.voluntary { background: linear-gradient(45deg, #9f7aea, #805ad5); }
-        
+
         .country-marker.comprehensive { border-color: #e53e3e; border-width: 4px; }
         .country-marker.innovation { border-color: #00d4ff; border-width: 4px; }
         .country-marker.state-led { border-color: #ed8936; border-width: 4px; }
         .country-marker.balanced { border-color: #48bb78; border-width: 4px; }
-        
-        /* Country Positions (approximate) */
+
+        /* Country Positions */
         .usa { top: 35%; left: 20%; }
         .canada { top: 25%; left: 22%; }
         .eu { top: 30%; left: 50%; }
@@ -175,7 +290,288 @@
         .india { top: 45%; left: 70%; }
         .brazil { top: 70%; left: 35%; }
         .uae { top: 45%; left: 60%; }
-        
+
+        /* Explore Button */
+        .explore-button-container {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .explore-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #00d4ff, #5a67d8);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .explore-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .explore-button span {
+            margin-left: 10px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .explore-button:hover span {
+            transform: translateX(5px);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .timeline-header h2 {
+            font-size: 2.5em;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .timeline-header p {
+            color: #cbd5e0;
+            font-size: 1.1em;
+        }
+
+        .timeline-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .timeline-track {
+            overflow-x: auto;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .timeline-track::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline-track::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .timeline-track::-webkit-scrollbar-thumb {
+            background: #00d4ff;
+            border-radius: 4px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #5a67d8, #ed64a6);
+            transform: translateY(-50%);
+        }
+
+        .timeline-items {
+            display: flex;
+            gap: 60px;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        .timeline-item {
+            min-width: 300px;
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #00d4ff;
+            border-radius: 50%;
+            border: 3px solid #0a0e27;
+            z-index: 2;
+        }
+
+        .timeline-date {
+            color: #ed8936;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .timeline-title {
+            color: #00d4ff;
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: #cbd5e0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 80px 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .news-header h2 {
+            font-size: 2.5em;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .news-header p {
+            color: #cbd5e0;
+            font-size: 1.1em;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .news-date {
+            color: #ed8936;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.3em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .news-excerpt {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .news-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .news-link:hover {
+            gap: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #5a67d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+        }
+
+        .copyright {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .copyright a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        /* Tooltip */
         .tooltip {
             position: absolute;
             background: rgba(0, 0, 0, 0.95);
@@ -191,545 +587,96 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
         }
-        
+
         .tooltip.show {
             opacity: 1;
         }
-        
+
         .tooltip h4 {
             color: #00d4ff;
             margin-bottom: 8px;
             font-size: 16px;
         }
-        
+
         .tooltip .status {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-bottom: 5px;
         }
-        
+
         .tooltip .status-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
         }
-        
-        .country-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        
-        .country-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-        }
-        
-        .country-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-        
-        .country-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .country-flag {
-            font-size: 3.5em;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-        }
-        
-        .country-info h3 {
-            font-size: 1.6em;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        
-        .country-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .status-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-        }
-        
-        .approach-tag {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: white;
-        }
-        
-        .legislation-section {
-            margin: 20px 0;
-        }
-        
-        .legislation-title {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: #00d4ff;
-            margin-bottom: 12px;
-        }
-        
-        .legislation-item {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border-left: 4px solid #00d4ff;
-        }
-        
-        .legislation-name {
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-        
-        .legislation-desc {
-            font-size: 0.9em;
-            color: #cbd5e0;
-            line-height: 1.5;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .feature-item {
-            background: rgba(0, 0, 0, 0.35);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 1.8em;
-            margin-bottom: 8px;
-        }
-        
-        .feature-text {
-            font-size: 0.8em;
-            color: #e2e8f0;
-            margin-bottom: 4px;
-        }
-        
-        .feature-value {
-            font-weight: 700;
-            color: #00d4ff;
-            font-size: 1em;
-        }
-        
-        .highlights-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(72, 187, 120, 0.15), rgba(56, 161, 105, 0.1));
-            border-radius: 12px;
-            border: 1px solid rgba(72, 187, 120, 0.3);
-        }
-        
-        .highlights-title {
-            font-weight: 700;
-            color: #48bb78;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-        
-        .highlight-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-        
-        .highlight-bullet {
-            color: #48bb78;
-            font-weight: bold;
-            margin-top: 2px;
-        }
-        
-        .investment-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(159, 122, 234, 0.15), rgba(128, 90, 213, 0.1));
-            border-radius: 12px;
-            border: 1px solid rgba(159, 122, 234, 0.3);
-        }
-        
-        .investment-title {
-            font-weight: 700;
-            color: #9f7aea;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-        }
-        
-        .investment-amount {
-            font-size: 1.8em;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-        
-        .investment-details {
-            font-size: 0.9em;
-            color: #e2e8f0;
-        }
-        
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            .nav-links {
+                display: none;
             }
-            
+
             .header h1 {
                 font-size: 2.5em;
             }
-            
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .legends-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .world-map {
                 height: 400px;
             }
-            
-            .country-details {
+
+            .news-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .copyright {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin: 20px auto;
-                width: fit-content;
+
+            .timeline-item {
+                min-width: 250px;
             }
-            /* ==================== TIMELINE SECTION STYLES ==================== */
-.timeline-section {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
-}
-
-.timeline-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #00d4ff;
-    margin-bottom: 10px;
-    font-weight: 800;
-}
-
-.timeline-subtitle {
-    text-align: center;
-    color: #cbd5e0;
-    margin-bottom: 50px;
-    font-size: 1.1em;
-}
-
-.timeline {
-    position: relative;
-    padding: 40px 0;
-}
-
-/* Vertical line in the middle */
-.timeline-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, #00d4ff, #5a67d8, #ed64a6);
-    transform: translateX(-50%);
-}
-
-.timeline-item {
-    position: relative;
-    width: 50%;
-    margin-bottom: 50px;
-}
-
-.timeline-item.left {
-    left: 0;
-    padding-right: 40px;
-}
-
-.timeline-item.right {
-    left: 50%;
-    padding-left: 40px;
-}
-
-.timeline-content {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 25px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-    border-color: #00d4ff;
-}
-
-.timeline-date {
-    font-weight: 700;
-    color: #ed8936;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-}
-
-.timeline-content h3 {
-    color: #00d4ff;
-    margin-bottom: 10px;
-    font-size: 1.3em;
-}
-
-.timeline-content p {
-    color: #cbd5e0;
-    font-size: 0.95em;
-    line-height: 1.5;
-}
-
-/* Timeline dots */
-.timeline-dot {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #00d4ff;
-    border: 3px solid #1a1c29;
-    border-radius: 50%;
-    top: 30px;
-    z-index: 1;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-}
-
-.timeline-item.left .timeline-dot {
-    right: -10px;
-}
-
-.timeline-item.right .timeline-dot {
-    left: -10px;
-}
-
-/* ==================== COMPARISON SECTION STYLES ==================== */
-.comparison-section {
-    max-width: 1400px;
-    margin: 60px auto;
-    padding: 0 20px;
-}
-
-.comparison-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #00d4ff;
-    margin-bottom: 10px;
-    font-weight: 800;
-}
-
-.comparison-subtitle {
-    text-align: center;
-    color: #cbd5e0;
-    margin-bottom: 30px;
-    font-size: 1.1em;
-}
-
-/* Country selector buttons */
-.comparison-selector {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.compare-btn {
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 25px;
-    color: white;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-.compare-btn:hover {
-    background: rgba(0, 212, 255, 0.2);
-    border-color: #00d4ff;
-    transform: translateY(-2px);
-}
-
-.compare-btn.selected {
-    background: #00d4ff;
-    color: #0a0e27;
-    font-weight: bold;
-    border-color: #00d4ff;
-}
-
-/* Comparison container */
-.comparison-container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 30px;
-    align-items: start;
-}
-
-.comparison-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 30px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 400px;
-    transition: all 0.3s ease;
-}
-
-.comparison-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #6b7280;
-    font-size: 1.2em;
-}
-
-.comparison-vs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2em;
-    font-weight: bold;
-    color: #00d4ff;
-    padding: 20px;
-}
-
-/* Comparison content (when country is selected) */
-.comparison-content {
-    animation: fadeIn 0.5s ease;
-}
-
-.comparison-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.comparison-flag {
-    font-size: 3em;
-}
-
-.comparison-name {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-
-.comparison-status {
-    display: inline-block;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.comparison-row {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.comparison-label {
-    color: #00d4ff;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.comparison-value {
-    color: #e2e8f0;
-    font-size: 1.1em;
-}
-
-/* Status colors for comparison */
-.comparison-status.status-active { background: #48bb78; }
-.comparison-status.status-implementing { background: #ed8936; }
-.comparison-status.status-planning { background: #4299e1; }
-.comparison-status.status-voluntary { background: #9f7aea; }
-
-/* Mobile responsive updates */
-@media (max-width: 768px) {
-    /* Timeline mobile */
-    .timeline-line {
-        left: 30px;
-    }
-    
-    .timeline-item {
-        width: 100%;
-        padding-left: 60px !important;
-        padding-right: 20px !important;
-    }
-    
-    .timeline-item.right {
-        left: 0;
-    }
-    
-    .timeline-dot {
-        left: 20px !important;
-    }
-    
-    /* Comparison mobile */
-    .comparison-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .comparison-vs {
-        transform: rotate(90deg);
-        margin: -10px 0;
-    }
-    
-    .comparison-selector {
-        justify-content: center;
-    }
-}
         }
     </style>
 </head>
 <body>
-    <div class="copyright">
-        © 2025 <a href="https://techletter.co" target="_blank">TechLetter.co</a>
+    <!-- Navigation -->
+            <nav>
+        <div class="nav-container">
+            <div class="nav-logo">Global AI Governance Map</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="regulations.html">Regulations & Policies</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#news">Updates</a></li>
+                <li><a href="https://techletter.co" target="_blank">TechLetter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Global AI Governance World Map</h1>
+        <p class="subtitle">Interactive Map of AI Policies & Regulations Worldwide - 2025</p>
+        <div class="copyright-badge">
+            © 2025 <a href="https://techletter.co" target="_blank">TechLetter.co</a>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <h1>🌍 Global AI Governance World Map</h1>
-            <p class="subtitle">Interactive Map of AI Policies & Regulations Worldwide - 2025</p>
+
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-header">
+            <h2>Interactive Policy Map</h2>
+            <p>Click on any country to explore their AI governance approach</p>
         </div>
-        
+
+        <!-- Legends -->
         <div class="legends-container">
             <div class="legend">
                 <div class="legend-title">🚦 Implementation Status</div>
@@ -752,26 +699,27 @@
             </div>
             
             <div class="legend">
-                <div class="legend-title">🎯 Governance Approaches (Border Colors)</div>
+                <div class="legend-title">🎯 Governance Approaches</div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #e53e3e; border-radius: 50%; width: 16px; height: 16px; border: 3px solid #e53e3e;"></div>
-                    <div><strong>Comprehensive:</strong> Detailed regulation (EU, Brazil)</div>
+                    <div class="legend-color" style="background: #e53e3e; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #e53e3e;"></div>
+                    <div><strong>Comprehensive:</strong> Detailed regulation</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #00d4ff; border-radius: 50%; width: 16px; height: 16px; border: 3px solid #00d4ff;"></div>
-                    <div><strong>Innovation-First:</strong> Light-touch (US, UK, Japan)</div>
+                    <div class="legend-color" style="background: #00d4ff; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #00d4ff;"></div>
+                    <div><strong>Innovation-First:</strong> Light-touch</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #ed8936; border-radius: 50%; width: 16px; height: 16px; border: 3px solid #ed8936;"></div>
-                    <div><strong>State-Led:</strong> Government-directed (China, UAE)</div>
+                    <div class="legend-color" style="background: #ed8936; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #ed8936;"></div>
+                    <div><strong>State-Led:</strong> Government-directed</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #48bb78; border-radius: 50%; width: 16px; height: 16px; border: 3px solid #48bb78;"></div>
-                    <div><strong>Balanced:</strong> Regulation + innovation (South Korea, Canada)</div>
+                    <div class="legend-color" style="background: #48bb78; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #48bb78;"></div>
+                    <div><strong>Balanced:</strong> Mixed approach</div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- World Map -->
         <div class="world-map-container">
             <div class="world-map">
                 <!-- Major Powers -->
@@ -793,804 +741,116 @@
                 <div class="country-marker uae active state-led" data-country="United Arab Emirates">🇦🇪</div>
             </div>
         </div>
+
+        <!-- Explore Button -->
+        <div class="explore-button-container">
+            <a href="regulations.html" class="explore-button">
+                Explore Detailed Policies & Regulations
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section" id="timeline">
+        <div class="timeline-header">
+            <h2>Recent Policy Milestones</h2>
+            <p>Key developments in global AI governance</p>
+        </div>
         
-        <div class="tooltip" id="tooltip"></div>
-        
-        <div class="country-details">
-            <!-- European Union -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇪🇺</div>
-                    <div class="country-info">
-                        <h3>European Union</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #48bb78, #38a169);"></div>
-                            <span>Active - World's First Comprehensive AI Law</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #e53e3e, #c53030);">Comprehensive Regulation</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Legislation</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">EU AI Act (Regulation 2024/1689)</div>
-                        <div class="legislation-desc">World's first comprehensive AI regulatory framework with four-tier risk classification system</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">General-Purpose AI Code of Practice</div>
-                        <div class="legislation-desc">Detailed compliance guidance for frontier AI models (effective July 2025)</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Max Penalties</div>
-                        <div class="feature-value">€35M or 7%</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">EU AI Office</div>
-                        <div class="feature-value">140+ Staff</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-text">Risk Tiers</div>
-                        <div class="feature-value">4 Levels</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🌍</div>
-                        <div class="feature-text">Global Standard</div>
-                        <div class="feature-value">First</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Human-centric AI prioritizing fundamental rights and democracy</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Mandatory conformity assessments for high-risk AI systems</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>GPAI models >10^25 FLOPs require systemic risk evaluations</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- United States -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇺🇸</div>
-                    <div class="country-info">
-                        <h3>United States</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #ed8936, #dd6b20);"></div>
-                            <span>Implementing - Innovation Dominance Strategy</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #00d4ff, #0bc5ea);">Innovation-First</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">America's AI Action Plan (July 2025)</div>
-                        <div class="legislation-desc">90+ policy actions across innovation, infrastructure, and international diplomacy</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Executive Order 14148 (January 2025)</div>
-                        <div class="legislation-desc">"Removing Barriers to American Leadership in AI" - revoked Biden's comprehensive approach</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Federal Penalties</div>
-                        <div class="feature-value">None</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">Coordination</div>
-                        <div class="feature-value">White House</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📈</div>
-                        <div class="feature-text">Policy Actions</div>
-                        <div class="feature-value">90+</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏛️</div>
-                        <div class="feature-text">State Authority</div>
-                        <div class="feature-value">Preserved</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Market-first approach emphasizing deregulation and export promotion</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Congress defeated federal preemption efforts 99-1, preserving state authority</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Heavy reliance on voluntary standards and existing legal frameworks</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- China -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇨🇳</div>
-                    <div class="country-info">
-                        <h3>China</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #48bb78, #38a169);"></div>
-                            <span>Active - State-Led Comprehensive Control</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #ed8936, #dd6b20);">State-Led</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Legislation</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">New Generation AI Development Plan (2017)</div>
-                        <div class="legislation-desc">National strategy targeting global AI leadership by 2030</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Interim Measures for Generative AI Services (2023)</div>
-                        <div class="legislation-desc">First specific regulation on generative AI with security assessment requirements</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Content Labeling Rules (2025)</div>
-                        <div class="legislation-desc">Mandatory labeling of all AI-generated content effective September 2025</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">📱</div>
-                        <div class="feature-text">Registered Services</div>
-                        <div class="feature-value">238</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">Lead Agency</div>
-                        <div class="feature-value">CAC</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🎯</div>
-                        <div class="feature-text">Target Year</div>
-                        <div class="feature-value">2030</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🔒</div>
-                        <div class="feature-text">Content Control</div>
-                        <div class="feature-value">Active</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Algorithm registry system with 238 generative AI services filed</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Integration with social credit and data governance systems</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>"Crossroads Era" triggered by DeepSeek's breakthrough in AI capabilities</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- South Korea -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇰🇷</div>
-                    <div class="country-info">
-                        <h3>South Korea</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #4299e1, #3182ce);"></div>
-                            <span>Planning - First Comprehensive APAC Legislation</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #48bb78, #38a169);">Balanced</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Legislation</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Framework Act (December 2024)</div>
-                        <div class="legislation-desc">First comprehensive AI legislation in Asia-Pacific, effective January 2026</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Max Penalties</div>
-                        <div class="feature-value">$21,000</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🎯</div>
-                        <div class="feature-text">AI Deployment</div>
-                        <div class="feature-value">70% by 2030</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏆</div>
-                        <div class="feature-text">Global Ranking</div>
-                        <div class="feature-value">Top 3 Goal</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">Committee</div>
-                        <div class="feature-value">Presidential</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Risk-based framework distinguishing "high-impact AI" in critical sectors</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Integration of AI governance with data protection reform</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>"Top 3 Global AI Strategy" backed by significant government investment</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Japan -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇯🇵</div>
-                    <div class="country-info">
-                        <h3>Japan</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #9f7aea, #805ad5);"></div>
-                            <span>Voluntary - Light-Touch Innovation Framework</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #00d4ff, #0bc5ea);">Innovation-First</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Promotion Act (May 2025)</div>
-                        <div class="legislation-desc">First AI-specific legislation focused entirely on promoting innovation without restrictions</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Penalties</div>
-                        <div class="feature-value">None</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">Leadership</div>
-                        <div class="feature-value">AI Strategy HQ</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🌏</div>
-                        <div class="feature-text">G7 Leadership</div>
-                        <div class="feature-value">Hiroshima AI</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🤝</div>
-                        <div class="feature-text">Approach</div>
-                        <div class="feature-value">Cooperative</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Technological neutrality relying on existing sector-specific laws</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Leads G7 Hiroshima AI Process establishing international guiding principles</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>No penalties, emphasizing cooperation between government and industry</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Singapore -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇸🇬</div>
-                    <div class="country-info">
-                        <h3>Singapore</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #9f7aea, #805ad5);"></div>
-                            <span>Voluntary - Technical Standards Leadership</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #48bb78, #38a169);">Balanced</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Model AI Governance Framework (2024)</div>
-                        <div class="legislation-desc">Covers both traditional and generative AI with nine trust dimensions</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Verify Foundation</div>
-                        <div class="legislation-desc">Global open-source community for AI testing tool development</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">🧪</div>
-                        <div class="feature-text">Testing Tools</div>
-                        <div class="feature-value">AI Verify</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📏</div>
-                        <div class="feature-text">Trust Dimensions</div>
-                        <div class="feature-value">9</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🌍</div>
-                        <div class="feature-text">Global Pilot</div>
-                        <div class="feature-value">Feb 2025</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🤝</div>
-                        <div class="feature-text">Countries</div>
-                        <div class="feature-value">9 APAC</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>World's first comprehensive AI governance testing toolkit</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Successful mapping to US NIST frameworks demonstrating international interoperability</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Global AI Assurance Pilot with multicultural red teaming exercises</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- United Kingdom -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇬🇧</div>
-                    <div class="country-info">
-                        <h3>United Kingdom</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #ed8936, #dd6b20);"></div>
-                            <span>Implementing - Pro-Innovation Positioning</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #00d4ff, #0bc5ea);">Innovation-First</div>
-                    </div>
-                </div>
-                
-                <div class="investment-section">
-                    <div class="investment-title">💰 Investment Commitment</div>
-                    <div class="investment-amount">£45+ Billion</div>
-                    <div class="investment-details">£20B government + £25B+ private sector commitment</div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Opportunities Action Plan (January 2025)</div>
-                        <div class="legislation-desc">Emphasizing economic growth over regulatory constraints</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">🚀</div>
-                        <div class="feature-text">AI Growth Zones</div>
-                        <div class="feature-value">Dedicated</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">New AI Laws</div>
-                        <div class="feature-value">None</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📋</div>
-                        <div class="feature-text">Core Principles</div>
-                        <div class="feature-value">5</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🔄</div>
-                        <div class="feature-text">Brexit Strategy</div>
-                        <div class="feature-value">Autonomy</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Post-Brexit regulatory autonomy distinct from EU AI Act</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Cross-sector framework relying on existing regulators</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>AI Growth Zones with enhanced infrastructure support</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Canada -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇨🇦</div>
-                    <div class="country-info">
-                        <h3>Canada</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #ed8936, #dd6b20);"></div>
-                            <span>Implementing - Public Service Modernization</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #48bb78, #38a169);">Balanced</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Strategy for Federal Public Service 2025-2027</div>
-                        <div class="legislation-desc">First comprehensive AI strategy for federal government operations (March 2025)</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Directive on Automated Decision-Making</div>
-                        <div class="legislation-desc">Mandatory Algorithmic Impact Assessments with peer review for higher-risk systems</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">🏛️</div>
-                        <div class="feature-text">Government Focus</div>
-                        <div class="feature-value">Federal</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">👥</div>
-                        <div class="feature-text">Consultations</div>
-                        <div class="feature-value">84 Sessions</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🤝</div>
-                        <div class="feature-text">Indigenous</div>
-                        <div class="feature-value">Partnership</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-text">Impact Assess.</div>
-                        <div class="feature-value">Mandatory</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Human-centric collaborative governance approach</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Most advanced government AI accountability framework globally</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Federal-provincial coordination while preserving jurisdictional boundaries</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Australia -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇦🇺</div>
-                    <div class="country-info">
-                        <h3>Australia</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #48bb78, #38a169);"></div>
-                            <span>Active - Mandatory Accountability Standards</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #48bb78, #38a169);">Balanced</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Policy for Responsible Use of AI in Government</div>
-                        <div class="legislation-desc">Mandatory requirements for all Commonwealth entities (September 2024)</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">National Framework for Assurance of AI in Government</div>
-                        <div class="legislation-desc">Consistent approach across federal, state, and territory levels</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">👤</div>
-                        <div class="feature-text">Officials</div>
-                        <div class="feature-value">Accountable</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-text">Transparency</div>
-                        <div class="feature-value">Mandatory</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏛️</div>
-                        <div class="feature-text">Coverage</div>
-                        <div class="feature-value">All Levels</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📅</div>
-                        <div class="feature-text">Deadlines</div>
-                        <div class="feature-value">Clear</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Government as exemplar in responsible AI use</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Mandatory designation of Accountable Officials</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Public AI transparency statements with clear reporting requirements</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- India -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇮🇳</div>
-                    <div class="country-info">
-                        <h3>India</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #ed8936, #dd6b20);"></div>
-                            <span>Implementing - Inclusive Development Approach</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #48bb78, #38a169);">Balanced</div>
-                    </div>
-                </div>
-                
-                <div class="investment-section">
-                    <div class="investment-title">💰 IndiaAI Mission Investment</div>
-                    <div class="investment-amount">₹10,372 Crore</div>
-                    <div class="investment-details">One of the largest national AI investments globally</div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">IndiaAI Mission (March 2024)</div>
-                        <div class="legislation-desc">Emphasizing "#AIForAll" inclusive development approach</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">AI Governance Guidelines (January 2025)</div>
-                        <div class="legislation-desc">Recommend Inter-Ministerial AI Coordination Committee</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">💻</div>
-                        <div class="feature-text">Compute Units</div>
-                        <div class="feature-value">18,000</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🌍</div>
-                        <div class="feature-text">Position</div>
-                        <div class="feature-value">AI Garage</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🗣️</div>
-                        <div class="feature-text">Models</div>
-                        <div class="feature-value">Multilingual</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Focus</div>
-                        <div class="feature-value">Harm Mitigation</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Indigenous AI model development with multilingual capabilities</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Positioning as "AI Garage" for developing world applications</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Whole-of-government approach with harm mitigation as core principle</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Brazil -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇧🇷</div>
-                    <div class="country-info">
-                        <h3>Brazil</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #4299e1, #3182ce);"></div>
-                            <span>Planning - Risk-Based Enforcement Model</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #e53e3e, #c53030);">Comprehensive</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Legislation</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">Senate-Approved AI Bill (December 2024)</div>
-                        <div class="legislation-desc">Risk-based framework similar to EU AI Act with three tiers</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">⚖️</div>
-                        <div class="feature-text">Max Penalties</div>
-                        <div class="feature-value">R$50M or 2%</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🏢</div>
-                        <div class="feature-text">Authority</div>
-                        <div class="feature-value">National AI</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-text">Risk Tiers</div>
-                        <div class="feature-value">3 Levels</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🧪</div>
-                        <div class="feature-text">Sandboxes</div>
-                        <div class="feature-value">Regulatory</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Risk-based framework with significant enforcement mechanisms</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Regulatory sandboxes for controlled experimentation</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Santos Dumont supercomputer development program</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- United Arab Emirates -->
-            <div class="country-card">
-                <div class="country-header">
-                    <div class="country-flag">🇦🇪</div>
-                    <div class="country-info">
-                        <h3>United Arab Emirates</h3>
-                        <div class="country-status">
-                            <div class="status-dot" style="background: linear-gradient(45deg, #48bb78, #38a169);"></div>
-                            <span>Active - Government-Led Innovation</span>
-                        </div>
-                        <div class="approach-tag" style="background: linear-gradient(45deg, #ed8936, #dd6b20);">State-Led</div>
-                    </div>
-                </div>
-                
-                <div class="legislation-section">
-                    <div class="legislation-title">📋 Key Framework</div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">National AI Strategy 2031</div>
-                        <div class="legislation-desc">Comprehensive framework with world's first Minister of State for AI (2017)</div>
-                    </div>
-                    <div class="legislation-item">
-                        <div class="legislation-name">International Stance on AI Policy (October 2024)</div>
-                        <div class="legislation-desc">Six core principles for international AI governance</div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">👤</div>
-                        <div class="feature-text">AI Minister</div>
-                        <div class="feature-value">World's 1st</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-text">Principles</div>
-                        <div class="feature-value">6 Core</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">⚡</div>
-                        <div class="feature-text">Legislation</div>
-                        <div class="feature-value">70% Faster</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📋</div>
-                        <div class="feature-text">ISO Standard</div>
-                        <div class="feature-value">42001:2023</div>
-                    </div>
-                </div>
-                
-                <div class="highlights-section">
-                    <div class="highlights-title">✨ Key Highlights</div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Regulatory Intelligence Office using AI to draft legislation</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Early adoption of ISO/IEC 42001:2023 AI management systems standard</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-bullet">•</span>
-                        <span>Government-led comprehensive planning with 70% acceleration targets</span>
+        <div class="timeline-container">
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-date">JANUARY 2025</div>
+                        <div class="timeline-title">🇺🇸 US AI Action Plan</div>
+                        <div class="timeline-desc">America launches 90+ policy actions focusing on innovation and deregulation</div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">DECEMBER 2024</div>
+                        <div class="timeline-title">🇧🇷 Brazil AI Bill</div>
+                        <div class="timeline-desc">Senate approves comprehensive AI regulation with risk-based framework</div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">DECEMBER 2024</div>
+                        <div class="timeline-title">🇰🇷 South Korea AI Act</div>
+                        <div class="timeline-desc">First comprehensive AI legislation in Asia-Pacific region</div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">AUGUST 2024</div>
+                        <div class="timeline-title">🇪🇺 EU AI Act Active</div>
+                        <div class="timeline-desc">World's first comprehensive AI law enters into force</div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">MAY 2024</div>
+                        <div class="timeline-title">🇯🇵 Japan AI Promotion</div>
+                        <div class="timeline-desc">First AI-specific legislation focused on innovation without restrictions</div>
+                        <div class="timeline-dot"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="news-header">
+            <h2>Latest Updates</h2>
+            <p>Recent developments in AI governance worldwide</p>
+        </div>
+        
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-date">JULY 31, 2025</div>
+                <h3 class="news-title">EU AI Code of Practice Takes Effect</h3>
+                <p class="news-excerpt">The European Union's detailed compliance guidance for frontier AI models officially becomes active, setting new standards for GPAI systems with compute thresholds above 10^25 FLOPs.</p>
+                <a href="#" class="news-link">Read more →</a>
+            </div>
+            
+            <div class="news-card">
+                <div class="news-date">JULY 28, 2025</div>
+                <h3 class="news-title">China's "Crossroads Era" with DeepSeek</h3>
+                <p class="news-excerpt">DeepSeek's breakthrough triggers what Chinese officials call the "Crossroads Era" in AI development, prompting new discussions on balancing innovation with state control.</p>
+                <a href="#" class="news-link">Read more →</a>
+            </div>
+            
+            <div class="news-card">
+                <div class="news-date">JULY 25, 2025</div>
+                <h3 class="news-title">UK Announces £45B AI Investment</h3>
+                <p class="news-excerpt">The United Kingdom commits to massive public-private AI investment totaling over £45 billion, establishing dedicated AI Growth Zones to compete globally.</p>
+                <a href="#" class="news-link">Read more →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🌍 Global AI Governance Map</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Methodology</a>
+                <a href="#">Contact</a>
+                <a href="#">Updates</a>
+            </div>
+            <div class="copyright">
+                © 2025 <a href="https://techletter.co" target="_blank">TechLetter.co</a>. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
     <script>
         // Country data for tooltips
         const countryData = {
@@ -1600,7 +860,7 @@
                 legislation: 'America\'s AI Action Plan (90+ policies)',
                 penalties: 'None (Federal)',
                 investment: '$Billions in private sector',
-                details: 'Market-first approach emphasizing deregulation and export promotion. States retain authority after Congress defeated federal preemption 99-1.'
+                details: 'Market-first approach emphasizing deregulation and export promotion.'
             },
             'European Union': {
                 status: 'Active - World\'s First Comprehensive AI Law',
@@ -1608,7 +868,7 @@
                 legislation: 'EU AI Act (Regulation 2024/1689)',
                 penalties: '€35M or 7% of global turnover',
                 investment: 'Regulatory focus',
-                details: 'Four-tier risk classification system with human-centric AI prioritizing fundamental rights and democracy.'
+                details: 'Four-tier risk classification system with human-centric AI.'
             },
             'China': {
                 status: 'Active - State-Led Comprehensive Control',
@@ -1616,7 +876,7 @@
                 legislation: 'AI Development Plan 2030 + Generative AI Measures',
                 penalties: 'Variable enforcement',
                 investment: 'Massive state investment',
-                details: 'Algorithm registry with 238 services, content control, integration with social credit systems. "Crossroads Era" with DeepSeek breakthrough.'
+                details: 'Algorithm registry with 238 services, content control.'
             },
             'Japan': {
                 status: 'Voluntary - Light-Touch Innovation Framework',
@@ -1624,7 +884,7 @@
                 legislation: 'AI Promotion Act (May 2025)',
                 penalties: 'None',
                 investment: 'Innovation focus',
-                details: 'First AI-specific legislation focused entirely on promoting innovation. Leads G7 Hiroshima AI Process.'
+                details: 'First AI-specific legislation focused entirely on promoting innovation.'
             },
             'South Korea': {
                 status: 'Planning - First Comprehensive APAC Legislation',
@@ -1632,7 +892,7 @@
                 legislation: 'AI Framework Act (effective Jan 2026)',
                 penalties: 'Up to $21,000',
                 investment: 'Top 3 Global AI Strategy',
-                details: 'Risk-based framework targeting 70% corporate AI deployment by 2030. Integration with data protection reform.'
+                details: 'Risk-based framework targeting 70% corporate AI deployment by 2030.'
             },
             'Singapore': {
                 status: 'Voluntary - Technical Standards Leadership',
@@ -1640,15 +900,15 @@
                 legislation: 'Model AI Governance Framework (2024)',
                 penalties: 'None (Voluntary)',
                 investment: 'AI Verify Foundation',
-                details: 'World\'s first comprehensive AI governance testing toolkit. Global AI Assurance Pilot with 9 APAC countries.'
+                details: 'World\'s first comprehensive AI governance testing toolkit.'
             },
             'United Kingdom': {
                 status: 'Implementing - Pro-Innovation Positioning',
                 approach: 'Innovation-First',
                 legislation: 'AI Opportunities Action Plan (Jan 2025)',
                 penalties: 'None (No new AI laws)',
-                investment: '£45+ billion (£20B gov + £25B+ private)',
-                details: 'Post-Brexit regulatory autonomy. AI Growth Zones with enhanced infrastructure. Cross-sector framework.'
+                investment: '£45+ billion',
+                details: 'Post-Brexit regulatory autonomy with AI Growth Zones.'
             },
             'Canada': {
                 status: 'Implementing - Public Service Modernization',
@@ -1656,7 +916,7 @@
                 legislation: 'AI Strategy for Federal Public Service 2025-2027',
                 penalties: 'Administrative (Government focus)',
                 investment: 'Federal modernization',
-                details: 'Most advanced government AI accountability framework globally. 84 stakeholder consultations with Indigenous partnership.'
+                details: 'Most advanced government AI accountability framework globally.'
             },
             'Australia': {
                 status: 'Active - Mandatory Accountability Standards',
@@ -1664,15 +924,15 @@
                 legislation: 'Policy for Responsible Use of AI in Government',
                 penalties: 'Administrative enforcement',
                 investment: 'Government exemplar approach',
-                details: 'Mandatory Accountable Officials and public transparency statements. Consistent federal-state framework.'
+                details: 'Mandatory Accountable Officials and public transparency statements.'
             },
             'India': {
                 status: 'Implementing - Inclusive Development Approach',
                 approach: 'Balanced',
                 legislation: 'IndiaAI Mission + AI Governance Guidelines',
                 penalties: 'Focus on harm mitigation',
-                investment: '₹10,372 crore (largest globally)',
-                details: '#AIForAll approach. 18,000 AI compute units. Positioning as "AI Garage" for developing world.'
+                investment: '₹10,372 crore',
+                details: '#AIForAll approach. 18,000 AI compute units.'
             },
             'Brazil': {
                 status: 'Planning - Risk-Based Enforcement Model',
@@ -1680,7 +940,7 @@
                 legislation: 'Senate-Approved AI Bill (Dec 2024)',
                 penalties: 'R$50M or 2% revenue',
                 investment: 'Santos Dumont supercomputer',
-                details: 'EU AI Act-similar framework with 3 risk tiers. Regulatory sandboxes for experimentation.'
+                details: 'EU AI Act-similar framework with 3 risk tiers.'
             },
             'United Arab Emirates': {
                 status: 'Active - Government-Led Innovation',
@@ -1688,7 +948,7 @@
                 legislation: 'National AI Strategy 2031',
                 penalties: 'Government coordination',
                 investment: 'Comprehensive state planning',
-                details: 'World\'s first AI Minister (2017). Regulatory Intelligence Office using AI to draft legislation 70% faster.'
+                details: 'World\'s first AI Minister (2017).'
             }
         };
 
@@ -1712,7 +972,6 @@
                         </div>
                         <p><strong>Approach:</strong> ${data.approach}</p>
                         <p><strong>Key Legislation:</strong> ${data.legislation}</p>
-                        <p><strong>Penalties:</strong> ${data.penalties}</p>
                         <p><strong>Investment:</strong> ${data.investment}</p>
                         <p style="margin-top: 8px; font-size: 13px; color: #cbd5e0;">${data.details}</p>
                     `;
@@ -1730,19 +989,20 @@
             });
 
             marker.addEventListener('click', (e) => {
+                // Redirect to regulations page with country parameter
                 const country = e.target.getAttribute('data-country');
-                // Scroll to the corresponding country card
-                const cards = document.querySelectorAll('.country-card');
-                cards.forEach(card => {
-                    const cardTitle = card.querySelector('h3').textContent;
-                    if (cardTitle === country) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        card.style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.5)';
-                        setTimeout(() => {
-                            card.style.boxShadow = '';
-                        }, 2000);
-                    }
-                });
+                window.location.href = `regulations.html#${country.toLowerCase().replace(/\s+/g, '-')}`;
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
 
@@ -1770,264 +1030,14 @@
         // Initialize animations
         addPulseAnimation();
 
-        // Add world map background with better styling
-        function enhanceMapBackground() {
-            const worldMap = document.querySelector('.world-map');
-            const mapSVG = `
-                <svg width="100%" height="100%" viewBox="0 0 1000 500" style="position: absolute; top: 0; left: 0;">
-                    <defs>
-                        <linearGradient id="worldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#1a1c29;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#2d1b69;stop-opacity:0.8" />
-                            <stop offset="100%" style="stop-color:#1a1c29;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!-- Simplified world continents -->
-                    <g fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1">
-                        <!-- North America -->
-                        <path d="M50 80 L300 80 L320 200 L280 250 L150 240 L80 180 Z"/>
-                        <!-- South America -->
-                        <path d="M200 280 L280 280 L300 450 L220 480 L180 400 Z"/>
-                        <!-- Europe -->
-                        <path d="M450 60 L550 60 L560 150 L480 160 L440 120 Z"/>
-                        <!-- Africa -->
-                        <path d="M440 180 L580 180 L600 400 L520 420 L460 350 Z"/>
-                        <!-- Asia -->
-                        <path d="M580 40 L850 40 L900 200 L850 250 L600 200 Z"/>
-                        <!-- Australia -->
-                        <path d="M780 350 L900 350 L920 420 L800 430 Z"/>
-                    </g>
-                    
-                    <!-- Grid lines -->
-                    <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
-                        <line x1="0" y1="125" x2="1000" y2="125"/>
-                        <line x1="0" y1="250" x2="1000" y2="250"/>
-                        <line x1="0" y1="375" x2="1000" y2="375"/>
-                        <line x1="250" y1="0" x2="250" y2="500"/>
-                        <line x1="500" y1="0" x2="500" y2="500"/>
-                        <line x1="750" y1="0" x2="750" y2="500"/>
-                    </g>
-                    
-                    <!-- Equator -->
-                    <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(0,212,255,0.3)" stroke-width="2" stroke-dasharray="5,5"/>
-                    
-                    <!-- Labels -->
-                    <text x="500" y="30" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="16" font-weight="bold">
-                        Global AI Governance Coverage - 2025
-                    </text>
-                    <text x="20" y="480" fill="rgba(255,255,255,0.4)" font-size="12">
-                        Click markers for details • Hover for quick info
-                    </text>
-                </svg>
-            `;
-            worldMap.style.background = 'url("data:image/svg+xml;base64,' + btoa(mapSVG) + '")';
-            worldMap.style.backgroundSize = 'cover';
-            worldMap.style.backgroundPosition = 'center';
-        }
-
-        // Initialize enhanced map
-        enhanceMapBackground();
-
-        // Add connection lines between related countries
-        function addConnectionLines() {
-            const svg = document.querySelector('.world-map svg');
-            if (svg) {
-                const connections = [
-                    { from: '.usa', to: '.canada', color: '#00d4ff' },
-                    { from: '.eu', to: '.uk', color: '#e53e3e' },
-                    { from: '.china', to: '.japan', color: '#ed8936' },
-                    { from: '.south-korea', to: '.singapore', color: '#48bb78' }
-                ];
-
-                connections.forEach(conn => {
-                    const fromEl = document.querySelector(conn.from);
-                    const toEl = document.querySelector(conn.to);
-                    if (fromEl && toEl) {
-                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        line.setAttribute('x1', fromEl.style.left);
-                        line.setAttribute('y1', fromEl.style.top);
-                        line.setAttribute('x2', toEl.style.left);
-                        line.setAttribute('y2', toEl.style.top);
-                        line.setAttribute('stroke', conn.color);
-                        line.setAttribute('stroke-width', '1');
-                        line.setAttribute('stroke-opacity', '0.3');
-                        line.setAttribute('stroke-dasharray', '3,3');
-                        svg.appendChild(line);
-                    }
-                });
-            }
-        }
-// ==================== COMPARISON FUNCTIONALITY ====================
-        
-        // Comparison functionality
-        const comparisonData = {
-            eu: {
-                name: "European Union",
-                flag: "🇪🇺",
-                status: "active",
-                statusText: "Active",
-                approach: "Comprehensive Regulation",
-                legislation: "EU AI Act (2024/1689)",
-                penalties: "€35M or 7% of global turnover",
-                riskTiers: "4 Levels",
-                keyFeature: "World's first comprehensive AI law",
-                enforcement: "140+ staff AI Office"
-            },
-            usa: {
-                name: "United States",
-                flag: "🇺🇸",
-                status: "implementing",
-                statusText: "Implementing",
-                approach: "Innovation-First",
-                legislation: "AI Action Plan (90+ policies)",
-                penalties: "None (Federal)",
-                riskTiers: "No formal tiers",
-                keyFeature: "Market-first deregulation",
-                enforcement: "Existing agencies (FTC, FDA)"
-            },
-            china: {
-                name: "China",
-                flag: "🇨🇳",
-                status: "active",
-                statusText: "Active",
-                approach: "State-Led Control",
-                legislation: "Generative AI Measures",
-                penalties: "Variable enforcement",
-                riskTiers: "Content-based",
-                keyFeature: "238 registered AI services",
-                enforcement: "CAC-led multi-agency"
-            },
-            uk: {
-                name: "United Kingdom",
-                flag: "🇬🇧",
-                status: "implementing",
-                statusText: "Implementing",
-                approach: "Innovation-First",
-                legislation: "AI Opportunities Action Plan",
-                penalties: "None (No new AI laws)",
-                riskTiers: "Sector-specific",
-                keyFeature: "£45B+ investment",
-                enforcement: "Existing regulators"
-            },
-            japan: {
-                name: "Japan",
-                flag: "🇯🇵",
-                status: "voluntary",
-                statusText: "Voluntary",
-                approach: "Innovation-First",
-                legislation: "AI Promotion Act",
-                penalties: "None",
-                riskTiers: "None",
-                keyFeature: "Zero penalties approach",
-                enforcement: "Cooperative governance"
-            },
-            india: {
-                name: "India",
-                flag: "🇮🇳",
-                status: "implementing",
-                statusText: "Implementing",
-                approach: "Balanced",
-                legislation: "IndiaAI Mission",
-                penalties: "Focus on harm mitigation",
-                riskTiers: "Under development",
-                keyFeature: "₹10,372 crore investment",
-                enforcement: "Inter-ministerial committee"
-            }
-        };
-
-        let selectedCountries = [];
-
-        // Handle country selection
-        document.querySelectorAll('.compare-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const country = this.dataset.country;
-                
-                // Toggle selection
-                if (selectedCountries.includes(country)) {
-                    // Deselect
-                    selectedCountries = selectedCountries.filter(c => c !== country);
-                    this.classList.remove('selected');
-                } else if (selectedCountries.length < 2) {
-                    // Select
-                    selectedCountries.push(country);
-                    this.classList.add('selected');
-                } else {
-                    // Replace first selected
-                    const firstCountry = selectedCountries[0];
-                    document.querySelector(`[data-country="${firstCountry}"]`).classList.remove('selected');
-                    selectedCountries = [selectedCountries[1], country];
-                    this.classList.add('selected');
-                }
-                
-                updateComparison();
+        // Timeline scroll indicator
+        const timelineTrack = document.querySelector('.timeline-track');
+        if (timelineTrack) {
+            timelineTrack.addEventListener('scroll', () => {
+                const scrollPercentage = (timelineTrack.scrollLeft / (timelineTrack.scrollWidth - timelineTrack.clientWidth)) * 100;
+                // You can add a scroll indicator here if needed
             });
-        });
-
-        // Update comparison display
-        function updateComparison() {
-            const card1 = document.getElementById('compare-1');
-            const card2 = document.getElementById('compare-2');
-            
-            if (selectedCountries[0]) {
-                card1.innerHTML = createComparisonCard(comparisonData[selectedCountries[0]]);
-            } else {
-                card1.innerHTML = '<div class="comparison-placeholder"><p>Select first country to compare</p></div>';
-            }
-            
-            if (selectedCountries[1]) {
-                card2.innerHTML = createComparisonCard(comparisonData[selectedCountries[1]]);
-            } else {
-                card2.innerHTML = '<div class="comparison-placeholder"><p>Select second country to compare</p></div>';
-            }
         }
-
-        // Create comparison card HTML
-        function createComparisonCard(data) {
-            return `
-                <div class="comparison-content">
-                    <div class="comparison-header">
-                        <span class="comparison-flag">${data.flag}</span>
-                        <h3 class="comparison-name">${data.name}</h3>
-                    </div>
-                    
-                    <div class="comparison-status status-${data.status}">${data.statusText}</div>
-                    
-                    <div class="comparison-row">
-                        <div class="comparison-label">Approach:</div>
-                        <div class="comparison-value">${data.approach}</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="comparison-label">Key Legislation:</div>
-                        <div class="comparison-value">${data.legislation}</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="comparison-label">Penalties:</div>
-                        <div class="comparison-value">${data.penalties}</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="comparison-label">Risk Tiers:</div>
-                        <div class="comparison-value">${data.riskTiers}</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="comparison-label">Key Feature:</div>
-                        <div class="comparison-value">${data.keyFeature}</div>
-                    </div>
-                    
-                    <div class="comparison-row" style="border-bottom: none;">
-                        <div class="comparison-label">Enforcement:</div>
-                        <div class="comparison-value">${data.enforcement}</div>
-                    </div>
-                </div>
-            `;
-        }
-        // Initialize after DOM is fully loaded
-        setTimeout(addConnectionLines, 100);
     </script>
 </body>
 </html>
-
