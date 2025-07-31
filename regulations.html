@@ -289,7 +289,7 @@
 
         .countries-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
         }
 
@@ -721,11 +721,11 @@
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .countries-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
             
             .country-card.expanded {
-                grid-column: span 2;
+                grid-column: span 1;
             }
         }
 
