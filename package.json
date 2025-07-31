@@ -1,0 +1,56 @@
+{
+  "name": "global-ai-governance-map",
+  "version": "1.0.0",
+  "description": "Interactive world map visualization of AI governance policies and regulations worldwide in 2025",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . --cors",
+    "build": "echo 'No build process needed for vanilla JS project'",
+    "test": "echo 'Tests not implemented yet'",
+    "deploy": "gh-pages -d .",
+    "lint": "eslint src/js/**/*.js",
+    "format": "prettier --write src/**/*.{js,css,html}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/global-ai-governance-map.git"
+  },
+  "keywords": [
+    "ai-governance",
+    "artificial-intelligence",
+    "policy",
+    "regulation",
+    "interactive-map",
+    "data-visualization",
+    "government",
+    "compliance",
+    "world-map",
+    "2025"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your-email@example.com",
+    "url": "https://your-website.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-username/global-ai-governance-map/issues"
+  },
+  "homepage": "https://your-username.github.io/global-ai-governance-map",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "gh-pages": "^6.1.1",
+    "prettier": "^3.2.5",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
