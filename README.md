@@ -4,7 +4,7 @@ An interactive world map visualization showcasing AI governance policies, regula
 
 ## 🚀 Live Demo
 
-[View Live Demo](https://your-username.github.io/global-ai-governance-map)
+[View Live Demo](https://github.com/nesibekiris/ai_policy_worldwide/)
 
 ## 📊 Features
 
