@@ -51,6 +51,88 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 14, 39, 0.98);
+            z-index: 1001;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: block;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+            color: #00d4ff;
+        }
+
+        .mobile-menu-links a.active {
+            color: #00d4ff;
+            font-weight: 700;
         }
 
         .nav-links {
@@ -207,7 +289,7 @@
 
         .countries-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 25px;
         }
 
@@ -638,8 +720,12 @@
 
         /* Mobile Responsive */
         @media (max-width: 1024px) {
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .country-card.expanded {
-                grid-column: span 1;
+                grid-column: span 2;
             }
         }
 
@@ -647,30 +733,144 @@
             .nav-links {
                 display: none;
             }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header {
+                padding: 100px 20px 30px;
+            }
 
             .header h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
+                letter-spacing: -1px;
+            }
+            
+            .header p {
+                font-size: 1em;
             }
 
             .countries-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .country-card-basic {
+                padding: 20px;
+            }
+            
+            .country-basic-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .country-name {
+                font-size: 1.4em;
+            }
+            
+            .country-badges {
+                justify-content: center;
             }
 
             .filter-container {
                 flex-direction: column;
                 gap: 15px;
+                padding: 20px;
             }
 
             .search-box {
                 min-width: 100%;
             }
+            
+            .filter-buttons {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+            
+            .comparison-toggle {
+                width: 100%;
+                padding: 12px;
+            }
 
             .quick-info {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .quick-info-item {
+                padding: 10px;
+            }
+            
+            .info-label {
+                font-size: 0.75em;
+            }
+            
+            .info-value {
+                font-size: 0.85em;
             }
 
             .feature-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .info-section {
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+            
+            .section-title {
+                font-size: 1em;
+            }
+            
+            .section-content {
+                font-size: 0.9em;
+            }
+            
+            .comparison-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .comparison-selected {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+            
+            .comparison-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .compare-btn, .export-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .country-flag {
+                font-size: 2.5em;
+            }
+            
+            .quick-info {
+                gap: 8px;
+            }
+            
+            .view-details-btn {
+                font-size: 0.9em;
+                padding: 10px;
             }
         }
     </style>
@@ -679,7 +879,12 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="nav-logo">Global AI Governance Map</div>
+            <a href="index.html" class="nav-logo">Global AI Governance Map</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#" class="active">Regulations & Policies</a></li>
@@ -689,6 +894,18 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">×</button>
+        <ul class="mobile-menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="active">Regulations & Policies</a></li>
+            <li><a href="index.html#timeline">Timeline</a></li>
+            <li><a href="index.html#news">Updates</a></li>
+            <li><a href="https://techletter.co" target="_blank">TechLetter</a></li>
+        </ul>
+    </div>
 
     <!-- Header -->
     <div class="header">
@@ -1812,6 +2029,12 @@
             }
         }
 
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
         // Search functionality
         const searchInput = document.getElementById('searchInput');
         const countryCards = document.querySelectorAll('.country-card');
@@ -1903,37 +2126,216 @@
             ).join('');
         }
 
+        // Get country data for comparison
+        function getCountryData(countryName) {
+            const countryData = {
+                'European Union': {
+                    status: 'Active',
+                    approach: 'Comprehensive',
+                    keyPolicy: 'EU AI Act (2024)',
+                    maxPenalty: '€35M or 7%',
+                    riskTiers: '4 Levels',
+                    governance: 'EU AI Office (140+ staff)',
+                    enforcement: 'National + EU Level',
+                    keyFeature: 'First comprehensive AI law globally'
+                },
+                'United States': {
+                    status: 'Implementing',
+                    approach: 'Innovation-First',
+                    keyPolicy: 'AI Action Plan (90+ policies)',
+                    maxPenalty: 'None (Federal)',
+                    riskTiers: 'No formal tiers',
+                    governance: 'White House coordination',
+                    enforcement: 'Existing agencies',
+                    keyFeature: 'Market-first deregulation approach'
+                },
+                'China': {
+                    status: 'Active',
+                    approach: 'State-Led',
+                    keyPolicy: 'AI Development Plan 2030',
+                    maxPenalty: 'Variable enforcement',
+                    riskTiers: 'Content-based',
+                    governance: 'CAC (238 registered services)',
+                    enforcement: 'Multi-agency',
+                    keyFeature: 'Algorithm registry system'
+                },
+                'United Kingdom': {
+                    status: 'Implementing',
+                    approach: 'Innovation-First',
+                    keyPolicy: 'AI Opportunities Action Plan',
+                    maxPenalty: 'None (No new AI laws)',
+                    riskTiers: 'Sector-specific',
+                    governance: 'DSIT + AISI',
+                    enforcement: 'Existing regulators',
+                    keyFeature: '£45B+ investment commitment'
+                },
+                'Japan': {
+                    status: 'Voluntary',
+                    approach: 'Innovation-First',
+                    keyPolicy: 'AI Promotion Act',
+                    maxPenalty: 'None',
+                    riskTiers: 'None',
+                    governance: 'AI Strategy HQ',
+                    enforcement: 'Cooperative',
+                    keyFeature: 'Zero penalties, innovation only'
+                },
+                'South Korea': {
+                    status: 'Planning',
+                    approach: 'Balanced',
+                    keyPolicy: 'AI Framework Act',
+                    maxPenalty: 'Up to $21,000',
+                    riskTiers: 'High-impact AI',
+                    governance: 'Presidential Committee',
+                    enforcement: 'To be established',
+                    keyFeature: 'First comprehensive APAC law'
+                },
+                'Singapore': {
+                    status: 'Voluntary',
+                    approach: 'Balanced',
+                    keyPolicy: 'Model AI Governance Framework',
+                    maxPenalty: 'None (Voluntary)',
+                    riskTiers: '9 Trust Dimensions',
+                    governance: 'IMDA',
+                    enforcement: 'Self-assessment',
+                    keyFeature: 'AI Verify testing toolkit'
+                },
+                'Canada': {
+                    status: 'Implementing',
+                    approach: 'Balanced',
+                    keyPolicy: 'Federal AI Strategy 2025-2027',
+                    maxPenalty: 'Administrative',
+                    riskTiers: 'Impact assessment based',
+                    governance: 'Treasury Board',
+                    enforcement: 'Government-focused',
+                    keyFeature: 'Mandatory AIAs for government'
+                },
+                'Australia': {
+                    status: 'Active',
+                    approach: 'Balanced',
+                    keyPolicy: 'AI in Government Policy',
+                    maxPenalty: 'Administrative',
+                    riskTiers: 'Risk-based',
+                    governance: 'DTA',
+                    enforcement: 'All government levels',
+                    keyFeature: 'Mandatory accountability officers'
+                },
+                'India': {
+                    status: 'Implementing',
+                    approach: 'Balanced',
+                    keyPolicy: 'IndiaAI Mission',
+                    maxPenalty: 'Focus on harm mitigation',
+                    riskTiers: 'Under development',
+                    governance: 'MeitY',
+                    enforcement: 'Inter-ministerial',
+                    keyFeature: '₹10,372 crore investment'
+                },
+                'Brazil': {
+                    status: 'Planning',
+                    approach: 'Comprehensive',
+                    keyPolicy: 'AI Bill (Senate approved)',
+                    maxPenalty: 'R$50M or 2%',
+                    riskTiers: '3 Levels',
+                    governance: 'National AI Authority',
+                    enforcement: 'To be established',
+                    keyFeature: 'EU-similar risk framework'
+                },
+                'United Arab Emirates': {
+                    status: 'Active',
+                    approach: 'State-Led',
+                    keyPolicy: 'National AI Strategy 2031',
+                    maxPenalty: 'Government coordination',
+                    riskTiers: 'Sector-based',
+                    governance: 'AI Minister (World\'s first)',
+                    enforcement: 'Government-led',
+                    keyFeature: 'AI for 70% faster legislation'
+                }
+            };
+            
+            return countryData[countryName] || {};
+        }
+
         function showComparison() {
             if (selectedCountries.length < 2) {
                 alert('Please select at least 2 countries to compare');
                 return;
             }
             
-            // Create comparison view (simplified for demo)
+            // Create comparison table with real data
             const comparisonHTML = `
-                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 2000; overflow: auto; padding: 40px;">
-                    <div style="max-width: 1400px; margin: 0 auto; background: #1a1c29; border-radius: 20px; padding: 40px;">
-                        <h2 style="color: #00d4ff; margin-bottom: 30px;">Country Comparison</h2>
-                        <table style="width: 100%; color: white; border-collapse: collapse;">
-                            <thead>
-                                <tr>
-                                    <th style="padding: 15px; border-bottom: 2px solid #00d4ff;">Aspect</th>
-                                    ${selectedCountries.map(c => `<th style="padding: 15px; border-bottom: 2px solid #00d4ff;">${c}</th>`).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="padding: 15px; border-bottom: 1px solid #333;">Status</td>
-                                    ${selectedCountries.map(() => `<td style="padding: 15px; border-bottom: 1px solid #333;">Active/Implementing</td>`).join('')}
-                                </tr>
-                                <tr>
-                                    <td style="padding: 15px; border-bottom: 1px solid #333;">Approach</td>
-                                    ${selectedCountries.map(() => `<td style="padding: 15px; border-bottom: 1px solid #333;">Varies</td>`).join('')}
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                        <button onclick="closeComparison()" style="margin-top: 30px; padding: 12px 30px; background: #00d4ff; border: none; border-radius: 20px; color: white; font-weight: bold; cursor: pointer;">Close</button>
+                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 2000; overflow: auto; padding: 20px;">
+                    <div style="max-width: 1200px; margin: 0 auto; background: #1a1c29; border-radius: 20px; padding: 30px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                            <h2 style="color: #00d4ff; margin: 0;">Country Comparison</h2>
+                            <button onclick="closeComparison()" style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; color: white; cursor: pointer;">✕ Close</button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; color: white; border-collapse: collapse; min-width: 600px;">
+                                <thead>
+                                    <tr style="background: rgba(0,212,255,0.1);">
+                                        <th style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); text-align: left; font-weight: 700; color: #00d4ff;">Aspect</th>
+                                        ${selectedCountries.map(c => `<th style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 700;">${c}</th>`).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Status</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.status || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr style="background: rgba(255,255,255,0.02);">
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Approach</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.approach || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Key Policy</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.keyPolicy || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr style="background: rgba(255,255,255,0.02);">
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Max Penalty</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.maxPenalty || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Risk Framework</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.riskTiers || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr style="background: rgba(255,255,255,0.02);">
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Governance</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.governance || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Enforcement</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.enforcement || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                    <tr style="background: rgba(255,255,255,0.02);">
+                                        <td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; color: #00d4ff;">Key Feature</td>
+                                        ${selectedCountries.map(c => {
+                                            const data = getCountryData(c);
+                                            return `<td style="padding: 15px; border: 1px solid rgba(255,255,255,0.1);">${data.keyFeature || 'N/A'}</td>`;
+                                        }).join('')}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1947,7 +2349,37 @@
         }
 
         function exportComparison() {
-            alert('Export functionality would generate a PDF comparison of selected countries');
+            if (selectedCountries.length < 2) {
+                alert('Please select at least 2 countries to compare before exporting');
+                return;
+            }
+            
+            // Create a simple text export for demo
+            let exportText = 'AI GOVERNANCE COMPARISON\n\n';
+            exportText += 'Countries: ' + selectedCountries.join(', ') + '\n\n';
+            
+            const aspects = ['status', 'approach', 'keyPolicy', 'maxPenalty', 'riskTiers', 'governance', 'enforcement', 'keyFeature'];
+            const aspectLabels = ['Status', 'Approach', 'Key Policy', 'Max Penalty', 'Risk Framework', 'Governance', 'Enforcement', 'Key Feature'];
+            
+            aspectLabels.forEach((label, index) => {
+                exportText += label + ':\n';
+                selectedCountries.forEach(country => {
+                    const data = getCountryData(country);
+                    exportText += `  ${country}: ${data[aspects[index]] || 'N/A'}\n`;
+                });
+                exportText += '\n';
+            });
+            
+            // Create download
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ai-governance-comparison.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            alert('Comparison exported! In a full implementation, this would generate a formatted PDF.');
         }
 
         function cancelComparison() {
