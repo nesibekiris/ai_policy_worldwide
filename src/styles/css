@@ -1,0 +1,4 @@
+#map { 
+    height: 600px;  /* Without this, map won't show! */
+    width: 100%;
+}
