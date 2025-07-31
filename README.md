@@ -160,4 +160,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the global AI governance community**
 
-For questions or feedback, please [open an issue](https://github.com/your-username/global-ai-governance-map/issues) or contact us at [me@nesinekiris.com](mailto:me@nesibekiris.com).
+For questions or feedback, please [open an issue](https://github.com/your-username/global-ai-governance-map/issues) or contact us at [me@nesibekiris.com](mailto:me@nesibekiris.com).
