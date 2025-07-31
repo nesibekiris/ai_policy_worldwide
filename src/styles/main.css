@@ -609,3 +609,46 @@ body {
     page-break-inside: avoid;
   }
 }
+/* Interactive Map Styles */
+.country-marker {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    animation: pulse 3s infinite;
+}
+
+.country-marker:hover {
+    transform: scale(1.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    animation: none;
+}
+
+/* Country Positions */
+.usa { top: 35%; left: 20%; background: linear-gradient(45deg, #ed8936, #dd6b20); }
+.canada { top: 25%; left: 22%; background: linear-gradient(45deg, #ed8936, #dd6b20); }
+.eu { top: 30%; left: 50%; background: linear-gradient(45deg, #48bb78, #38a169); }
+.uk { top: 28%; left: 48%; background: linear-gradient(45deg, #ed8936, #dd6b20); }
+.china { top: 35%; left: 75%; background: linear-gradient(45deg, #48bb78, #38a169); }
+.japan { top: 40%; left: 85%; background: linear-gradient(45deg, #48bb78, #38a169); }
+.south-korea { top: 38%; left: 82%; background: linear-gradient(45deg, #4299e1, #3182ce); }
+.singapore { top: 55%; left: 77%; background: linear-gradient(45deg, #9f7aea, #805ad5); }
+.australia { top: 75%; left: 85%; background: linear-gradient(45deg, #48bb78, #38a169); }
+.india { top: 45%; left: 70%; background: linear-gradient(45deg, #ed8936, #dd6b20); }
+.brazil { top: 70%; left: 35%; background: linear-gradient(45deg, #4299e1, #3182ce); }
+.uae { top: 45%; left: 60%; background: linear-gradient(45deg, #48bb78, #38a169); }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
