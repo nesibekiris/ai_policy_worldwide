@@ -51,6 +51,88 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 14, 39, 0.98);
+            z-index: 1001;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: block;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+            color: #00d4ff;
+        }
+
+        .mobile-menu-links a.active {
+            color: #00d4ff;
+            font-weight: 700;
         }
 
         .nav-links {
@@ -182,15 +264,15 @@
         .legends-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 0 auto 30px;
-            max-width: 800px;
+            gap: 15px;
+            margin: 0 auto 20px;
+            max-width: 700px;
         }
 
         .legend {
-            padding: 15px 20px;
+            padding: 8px 12px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border-radius: 10px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             flex: 1;
@@ -198,24 +280,23 @@
 
         .legend-title {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             color: #00d4ff;
-            font-size: 1em;
+            font-size: 0.8em;
             font-weight: 700;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 4px;
-            margin-bottom: 4px;
-            font-size: 0.85em;
+            gap: 6px;
+            padding: 2px 0;
+            font-size: 0.75em;
         }
 
         .legend-color {
-            width: 16px;
-            height: 16px;
+            width: 12px;
+            height: 12px;
             border-radius: 3px;
             flex-shrink: 0;
         }
@@ -616,6 +697,10 @@
             .nav-links {
                 display: none;
             }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
 
             .header h1 {
                 font-size: 2.5em;
@@ -637,8 +722,102 @@
                 grid-template-columns: 1fr;
             }
 
+            .timeline-track {
+                overflow-x: auto;
+                padding: 30px 0;
+            }
+            
+            .timeline-track::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .timeline-header {
+                margin-bottom: 30px;
+            }
+            
+            .timeline-header h2 {
+                font-size: 2em;
+                margin-bottom: 8px;
+            }
+            
+            .timeline-section {
+                padding: 50px 0;
+            }
+            
+            .timeline-container {
+                padding: 0 10px;
+            }
+
             .timeline-item {
                 min-width: 250px;
+                padding: 15px;
+            }
+
+            .timeline-dot {
+                width: 16px;
+                height: 16px;
+                bottom: -35px;
+            }
+
+            .timeline-date {
+                font-size: 0.8em;
+                margin-bottom: 8px;
+            }
+
+            .timeline-title {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .timeline-desc {
+                font-size: 0.85em;
+            }
+            
+            .timeline-header h2 {
+                font-size: 2em;
+            }
+            
+            .timeline-header p {
+                font-size: 1em;
+            }
+            
+            .timeline-section {
+                padding: 50px 0;
+            }
+            
+            .timeline-container {
+                padding: 0 10px;
+            }
+            
+            .legends-container {
+                gap: 10px;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+            
+            .legend {
+                padding: 6px 10px;
+            }
+            
+            .legend-title {
+                font-size: 0.75em;
+                margin-bottom: 4px;
+            }
+            
+            .legend-item {
+                font-size: 0.7em;
+                padding: 1px 0;
+                gap: 4px;
+            }
+            
+            .legend-color {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .legend-item .legend-color[style*="border-radius: 50%"] {
+                width: 8px !important;
+                height: 8px !important;
             }
         }
     </style>
@@ -682,39 +861,39 @@
                 <div class="legend-title">🚦 Implementation Status</div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(45deg, #48bb78, #38a169);"></div>
-                    <div><strong>Active:</strong> Fully operational with enforcement</div>
+                    <div>Active</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(45deg, #ed8936, #dd6b20);"></div>
-                    <div><strong>Implementing:</strong> Rolling out policies</div>
+                    <div>Implementing</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(45deg, #4299e1, #3182ce);"></div>
-                    <div><strong>Planning:</strong> Approved, not yet effective</div>
+                    <div>Planning</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(45deg, #9f7aea, #805ad5);"></div>
-                    <div><strong>Voluntary:</strong> Guidelines and frameworks</div>
+                    <div>Voluntary</div>
                 </div>
             </div>
             
             <div class="legend">
                 <div class="legend-title">🎯 Governance Approaches</div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #e53e3e; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #e53e3e;"></div>
-                    <div><strong>Comprehensive:</strong> Detailed regulation</div>
+                    <div class="legend-color" style="background: #e53e3e; border-radius: 50%; width: 10px; height: 10px; border: 1px solid #e53e3e;"></div>
+                    <div>Comprehensive</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #00d4ff; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #00d4ff;"></div>
-                    <div><strong>Innovation-First:</strong> Light-touch</div>
+                    <div class="legend-color" style="background: #00d4ff; border-radius: 50%; width: 10px; height: 10px; border: 1px solid #00d4ff;"></div>
+                    <div>Innovation-First</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #ed8936; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #ed8936;"></div>
-                    <div><strong>State-Led:</strong> Government-directed</div>
+                    <div class="legend-color" style="background: #ed8936; border-radius: 50%; width: 10px; height: 10px; border: 1px solid #ed8936;"></div>
+                    <div>State-Led</div>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #48bb78; border-radius: 50%; width: 12px; height: 12px; border: 2px solid #48bb78;"></div>
-                    <div><strong>Balanced:</strong> Mixed approach</div>
+                    <div class="legend-color" style="background: #48bb78; border-radius: 50%; width: 10px; height: 10px; border: 1px solid #48bb78;"></div>
+                    <div>Balanced</div>
                 </div>
             </div>
         </div>
@@ -852,6 +1031,12 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
         // Country data for tooltips
         const countryData = {
             'United States': {
