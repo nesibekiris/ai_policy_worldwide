@@ -1,49 +1,27 @@
 # 🌍 Global AI Governance Interactive Map 2025
 
-An interactive world map visualization showcasing AI governance policies, regulations, and frameworks across major nations worldwide.
+An interactive policy intelligence dashboard that visualises how nations regulate and invest in artificial intelligence. The project now ships with a lightweight Node.js backend so the homepage pulls live policy data from an API instead of relying on hard-coded markup.
 
 ## 🚀 Live Demo
 
-[View Live Demo](https://github.com/nesibekiris/ai_policy_worldwide/)
+> Clone the repository and run it locally to explore the interactive experience.
 
-## 📊 Features
+## 📊 Key Features
 
-- **Interactive World Map** with clickable country markers
-- **Comprehensive Data** on 12+ countries' AI policies
-- **Real-time Tooltips** with detailed policy information
-- **Visual Legends** for governance approaches and implementation status
-- **Responsive Design** optimized for all devices
-- **Modern UI** with smooth animations and glass-morphism effects
-
-## 🏛️ Countries Covered
-
-### Major Powers
-- 🇺🇸 **United States** - Innovation-First Approach
-- 🇪🇺 **European Union** - Comprehensive Regulation (AI Act)
-- 🇨🇳 **China** - State-Led Control Model
-
-### Regional Leaders
-- 🇯🇵 **Japan** - Light-Touch Innovation Framework
-- 🇰🇷 **South Korea** - Balanced Approach (AI Framework Act)
-- 🇸🇬 **Singapore** - Technical Standards Leadership
-- 🇬🇧 **United Kingdom** - Pro-Innovation Positioning
-- 🇨🇦 **Canada** - Public Service Modernization
-- 🇦🇺 **Australia** - Mandatory Accountability Standards
-
-### Emerging Leaders
-- 🇮🇳 **India** - Inclusive Development (₹10,372 crore investment)
-- 🇧🇷 **Brazil** - Risk-Based Enforcement Model
-- 🇦🇪 **UAE** - Government-Led Innovation
+- **Interactive World Map** with animated, clickable policy markers
+- **Dynamic Tooltips** populated from JSON data served by an API endpoint
+- **Zero-dependency Node.js Backend** that exposes reusable policy data for future integrations
+- **Responsive UI** designed with modern gradients, glassmorphism, and accessible markup
+- **Companion Regulations Page** for deep dives into national frameworks
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Modern CSS with custom properties, gradients, and animations
-- **Data**: JSON-based country information
-- **Icons**: Unicode flags and emojis
-- **Deployment**: GitHub Pages ready
+- **Frontend:** Vanilla HTML5, CSS3, JavaScript (ES2020+)
+- **Backend:** Node.js (native HTTP server)
+- **Data:** Structured JSON stored in `src/data/countries.json`
+- **Tooling:** ESLint, Prettier (optional) and npm scripts for local development
 
-## 📦 Installation & Setup
+## 📦 Installation & Local Development
 
 1. **Clone the repository**
    ```bash
@@ -51,113 +29,66 @@ An interactive world map visualization showcasing AI governance policies, regula
    cd global-ai-governance-map
    ```
 
-2. **Install dependencies** (optional - for development tools)
+2. **Install optional tooling** *(only required for linting/formatting commands)*
    ```bash
    npm install
    ```
 
-3. **Run locally**
-   - Simply open `index.html` in your browser, or
-   - Use a local server:
+3. **Start the interactive site**
    ```bash
-   npx serve .
-   # or
-   python -m http.server 8000
+   npm start
    ```
 
-4. **Deploy to GitHub Pages**
-   - Push to `main` branch
-   - Enable GitHub Pages in repository settings
-   - Select source: `Deploy from a branch` → `main` → `/ (root)`
+   The development server runs at [http://localhost:3000](http://localhost:3000) and serves both the static site and the `/api/countries` endpoint.
+
+## 🔌 API Endpoints
+
+| Method | Endpoint           | Description                          |
+| ------ | ------------------ | ------------------------------------ |
+| GET    | `/api/countries`   | Returns the structured list of AI governance profiles used across the site |
+
+The API reads directly from `src/data/countries.json`, so updating that file automatically refreshes map markers and tooltips.
 
 ## 📁 Project Structure
 
 ```
-global-ai-governance-map/
-├── index.html                 # Main HTML file
-├── README.md                  # Project documentation
-├── package.json              # Node.js dependencies
-├── LICENSE                   # MIT License
-├── .gitignore               # Git ignore rules
-├── src/
-│   ├── styles/
-│   │   └── main.css         # Main stylesheet
-│   ├── js/
-│   │   ├── app.js           # Main application logic
-│   │   ├── countryData.js   # Country data management
-│   │   └── mapInteractions.js # Map interaction handlers
-│   └── data/
-│       └── countries.json   # Country information database
+ai_policy_worldwide/
 ├── assets/
 │   └── images/
-│       └── world-map.svg    # World map SVG
-└── docs/                    # Additional documentation
+│       ├── preview.png
+│       └── world-map.svg
+├── index.html
+├── regulations.html
+├── server.js
+├── src/
+│   ├── data/
+│   │   └── countries.json
+│   ├── js/
+│   │   └── app.js
+│   └── styles/
+│       └── main.css
+├── package.json
+└── README.md
 ```
 
-## 🎨 Customization
+## 🎯 Customisation Tips
 
-### Adding New Countries
-1. Update `src/data/countries.json` with new country data
-2. Add country marker position in `src/js/mapInteractions.js`
-3. Include country flag and styling in CSS
+- **Add a new country**: Append the details to `src/data/countries.json` (including `position` for map coordinates). The map will render the marker automatically.
+- **Tune marker styling**: Adjust gradients and animation timing in the CSS definitions inside `index.html` or `src/styles/main.css`.
+- **Extend the API**: Add new endpoints in `server.js` to surface additional datasets (e.g., regulations, timelines, investments).
 
-### Styling Changes
-- Modify CSS custom properties in `src/styles/main.css`
-- Update color schemes, animations, and layout
-- Customize responsive breakpoints
+## 📈 Roadmap Ideas
 
-### Data Updates
-- Update policy information in `countries.json`
-- Modify implementation status and governance approaches
-- Add new legislation and investment data
-
-## 📊 Data Sources
-
-This visualization is based on comprehensive research from:
-- Official government publications
-- Legal documents and frameworks
-- Industry reports and analyses
-- International organization guidelines
-
-*Last updated: July 2025*
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Ways to Contribute
-- 🐛 Report bugs or issues
-- 💡 Suggest new features
-- 📊 Update country data
-- 🎨 Improve design and UX
-- 📝 Enhance documentation
+- Enrich `/api/countries` with timeline events for each jurisdiction
+- Persist updates via a lightweight admin interface
+- Generate comparative analytics views from the shared API layer
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-## 🙏 Acknowledgments
+## 🙏 Acknowledgements
 
-- Data compilation by [TechLetter.co](https://techletter.co)
-- Country flag emojis from Unicode Standard
-- Inspired by global AI governance research
-
-## 📈 Statistics
-
-- **12+ Countries** with comprehensive AI policies
-- **3 Major Governance Models** identified
-- **$100B+ Total AI Investment** tracked
-- **2025** Critical implementation year
-
-## 🔗 Related Resources
-
-- [EU AI Act Official Text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689)
-- [US AI Action Plan](https://www.whitehouse.gov/ai/)
-- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
-- [Singapore AI Verify](https://www.aiverify.sg/)
-
----
-
-**Built with ❤️ for the global AI governance community**
-
-For questions or feedback, please [open an issue](https://github.com/your-username/global-ai-governance-map/issues) or contact us at [me@nesibekiris.com](mailto:me@nesibekiris.com).
+- Policy research and copy by [TechLetter.co](https://techletter.co)
+- Emoji flags courtesy of the Unicode Consortium
+- Inspiration from global AI governance research communities
