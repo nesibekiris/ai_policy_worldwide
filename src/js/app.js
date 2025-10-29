@@ -1,285 +1,328 @@
-/**
- * Global AI Governance Map - Main Application
- * Interactive world map visualization of AI policies and regulations
- */
-
 class AIGovernanceMap {
   constructor() {
     this.countries = [];
-    this.tooltip = null;
-    this.markers = [];
-    this.currentFilter = 'all';
-    
-    this.init();
+    this.mapContainer = null;
+    this.fallbackContainer = null;
+
+    this.statusColors = {
+      active: '#48bb78',
+      implementing: '#ed8936',
+      planning: '#4299e1',
+      voluntary: '#9f7aea'
+    };
+
+    this.approachBorders = {
+      comprehensive: '#e53e3e',
+      innovation: '#00d4ff',
+      'state-led': '#ed8936',
+      balanced: '#48bb78'
+    };
   }
 
   async init() {
-    try {
-      await this.loadCountryData();
-      this.setupMap();
-      this.setupInteractions();
-      this.setupAnimations();
-      this.generateCountryCards();
-      
-      console.log('AI Governance Map initialized successfully');
-    } catch (error) {
-      console.error('Failed to initialize AI Governance Map:', error);
-    }
+    this.cacheDom();
+    this.setupGlobalInteractions();
+
+    await this.loadCountryData();
+    this.initializeMap();
+  }
+
+  cacheDom() {
+    this.mapContainer = document.getElementById('policy-world-map');
+    this.fallbackContainer = document.getElementById('mapFallback');
+  }
+
+  setupGlobalInteractions() {
+    this.setupSmoothScroll();
+  }
+
+  setupSmoothScroll() {
+    const anchors = document.querySelectorAll('a[href^="#"]');
+    anchors.forEach(anchor => {
+      anchor.addEventListener('click', event => {
+        const href = anchor.getAttribute('href');
+        if (href && href.length > 1) {
+          const target = document.querySelector(href);
+          if (target) {
+            event.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
   }
 
   async loadCountryData() {
     try {
       const response = await fetch('./src/data/countries.json');
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`Failed to fetch countries.json: ${response.status}`);
       }
+
       const data = await response.json();
-      this.countries = data.countries;
+      this.countries = Array.isArray(data?.countries) ? data.countries : [];
     } catch (error) {
-      console.error('Failed to load country data:', error);
-      // Fallback to embedded data if fetch fails
+      console.error('Unable to load country data. Falling back to embedded dataset.', error);
       this.countries = this.getFallbackData();
     }
   }
 
   getFallbackData() {
-    // Fallback data in case JSON file can't be loaded
     return [
       {
-        id: "usa",
-        name: "United States",
-        flag: "🇺🇸",
-        status: "implementing",
-        approach: "innovation",
+        id: 'usa',
+        name: 'United States',
+        status: 'implementing',
+        approach: 'innovation',
+        category: 'major-power',
         statusText: "Implementing - Innovation Dominance Strategy",
-        approachText: "Innovation-First",
-        position: { top: "35%", left: "20%" }
+        approachText: 'Innovation-First'
       },
       {
-        id: "eu",
-        name: "European Union",
-        flag: "🇪🇺",
-        status: "active",
-        approach: "comprehensive",
+        id: 'eu',
+        name: 'European Union',
+        status: 'active',
+        approach: 'comprehensive',
+        category: 'major-power',
         statusText: "Active - World's First Comprehensive AI Law",
-        approachText: "Comprehensive Regulation",
-        position: { top: "30%", left: "50%" }
+        approachText: 'Comprehensive Regulation'
       },
       {
-        id: "china",
-        name: "China",
-        flag: "🇨🇳",
-        status: "active",
-        approach: "state-led",
-        statusText: "Active - State-Led Comprehensive Control",
-        approachText: "State-Led",
-        position: { top: "35%", left: "75%" }
+        id: 'china',
+        name: 'China',
+        status: 'active',
+        approach: 'state-led',
+        category: 'major-power',
+        statusText: 'Active - State-Led Comprehensive Control',
+        approachText: 'State-Led'
       }
     ];
   }
 
-  setupMap() {
-    const mapContainer = document.querySelector('.world-map');
-    if (!mapContainer) {
-      console.error('Map container not found');
+  initializeMap() {
+    if (!this.mapContainer) {
+      console.warn('Policy world map container not found.');
       return;
     }
 
-    // Create tooltip
-    this.tooltip = document.createElement('div');
-    this.tooltip.className = 'tooltip';
-    this.tooltip.id = 'tooltip';
-    document.body.appendChild(this.tooltip);
-
-    // Create country markers
-    this.countries.forEach(country => {
-      const marker = this.createCountryMarker(country);
-      mapContainer.appendChild(marker);
-      this.markers.push(marker);
-    });
-
-    this.enhanceMapBackground();
-  }
-
-  createCountryMarker(country) {
-    const marker = document.createElement('div');
-    marker.className = `country-marker ${country.id} ${country.status} ${country.approach}`;
-    marker.style.top = country.position.top;
-    marker.style.left = country.position.left;
-    marker.textContent = country.flag;
-    marker.setAttribute('data-country', country.name);
-    marker.setAttribute('data-id', country.id);
-    
-    return marker;
-  }
-
-  setupInteractions() {
-    this.markers.forEach(marker => {
-      marker.addEventListener('mouseenter', (e) => this.showTooltip(e));
-      marker.addEventListener('mousemove', (e) => this.updateTooltipPosition(e));
-      marker.addEventListener('mouseleave', () => this.hideTooltip());
-      marker.addEventListener('click', (e) => this.handleMarkerClick(e));
-    });
-
-    // Setup filter buttons if they exist
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => this.handleFilter(e));
-    });
-  }
-
-  showTooltip(event) {
-    const countryName = event.target.getAttribute('data-country');
-    const country = this.countries.find(c => c.name === countryName);
-    
-    if (country && this.tooltip) {
-      const statusDotClass = this.getStatusDotClass(country.status);
-      
-      this.tooltip.innerHTML = `
-        <h4>${country.name}</h4>
-        <div class="status">
-          <div class="status-dot ${statusDotClass}"></div>
-          <span>${country.statusText}</span>
-        </div>
-        <p><strong>Approach:</strong> ${country.approachText}</p>
-        ${country.legislation && country.legislation[0] ? 
-          `<p><strong>Key Legislation:</strong> ${country.legislation[0].name}</p>` : ''}
-        ${country.penalties ? `<p><strong>Penalties:</strong> ${country.penalties}</p>` : ''}
-        ${country.investment ? `<p><strong>Investment:</strong> ${country.investment.amount}</p>` : ''}
-        ${country.details ? `<p style="margin-top: 8px; font-size: 13px; color: #cbd5e0;">${country.details}</p>` : ''}
-      `;
-      this.tooltip.classList.add('show');
+    if (!window.simplemaps_worldmap || typeof window.simplemaps_worldmap !== 'object') {
+      this.showFallback('Interactive map failed to load.');
+      return;
     }
-  }
 
-  updateTooltipPosition(event) {
-    if (this.tooltip) {
-      this.tooltip.style.left = event.pageX + 15 + 'px';
-      this.tooltip.style.top = event.pageY - 10 + 'px';
+    const locations = this.createLocations();
+    if (!locations || Object.keys(locations).length === 0) {
+      this.showFallback('No country data available for the interactive map.');
+      return;
     }
-  }
 
-  hideTooltip() {
-    if (this.tooltip) {
-      this.tooltip.classList.remove('show');
-    }
-  }
-
-  handleMarkerClick(event) {
-    const countryName = event.target.getAttribute('data-country');
-    this.scrollToCountryCard(countryName);
-  }
-
-  scrollToCountryCard(countryName) {
-    const cards = document.querySelectorAll('.country-card');
-    cards.forEach(card => {
-      const cardTitle = card.querySelector('h3')?.textContent;
-      if (cardTitle === countryName) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        this.highlightCard(card);
-      }
-    });
-  }
-
-  highlightCard(card) {
-    card.style.boxShadow = '0 0 30px rgba(0, 212, 255, 0.5)';
-    card.style.transform = 'translateY(-15px) scale(1.02)';
-    
-    setTimeout(() => {
-      card.style.boxShadow = '';
-      card.style.transform = '';
-    }, 2000);
-  }
-
-  handleFilter(event) {
-    const filter = event.target.getAttribute('data-filter') || 'all';
-    this.currentFilter = filter;
-    
-    // Update active button
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    // Filter markers and cards
-    this.applyFilter(filter);
-  }
-
-  applyFilter(filter) {
-    this.markers.forEach(marker => {
-      const countryId = marker.getAttribute('data-id');
-      const country = this.countries.find(c => c.id === countryId);
-      
-      if (this.shouldShowCountry(country, filter)) {
-        marker.style.display = 'flex';
-        marker.style.opacity = '1';
-      } else {
-        marker.style.display = 'none';
-        marker.style.opacity = '0.3';
-      }
-    });
-
-    // Filter country cards
-    const cards = document.querySelectorAll('.country-card');
-    cards.forEach(card => {
-      const countryName = card.querySelector('h3')?.textContent;
-      const country = this.countries.find(c => c.name === countryName);
-      
-      if (this.shouldShowCountry(country, filter)) {
-        card.style.display = 'block';
-        card.classList.add('fade-in');
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  shouldShowCountry(country, filter) {
-    if (!country) return false;
-    
-    switch (filter) {
-      case 'all':
-        return true;
-      case 'major-power':
-        return country.category === 'major-power';
-      case 'regional-leader':
-        return country.category === 'regional-leader';
-      case 'emerging-leader':
-        return country.category === 'emerging-leader';
-      case 'active':
-        return country.status === 'active';
-      case 'comprehensive':
-        return country.approach === 'comprehensive';
-      default:
-        return true;
-    }
-  }
-
-  getStatusDotClass(status) {
-    const statusMap = {
-      'active': 'status-active',
-      'implementing': 'status-implementing',
-      'planning': 'status-planning',
-      'voluntary': 'status-voluntary'
+    window.simplemaps_worldmap_mapdata = {
+      main_settings: {
+        div: 'policy-world-map',
+        width: 'responsive',
+        background_color: '#0f1534',
+        background_transparent: 'yes',
+        border_color: '#1f2937',
+        popups: 'detect',
+        state_description: 'AI governance data unavailable',
+        state_color: '#1f2547',
+        state_hover_color: '#27315d',
+        border_size: 0.7,
+        all_states_inactive: 'yes',
+        all_states_zoomable: 'no',
+        location_description: 'Click to view detailed AI policy overview',
+        location_color: '#00d4ff',
+        location_opacity: 0.92,
+        location_hover_opacity: 1,
+        location_url: 'regulations.html',
+        location_type: 'circle',
+        location_border_color: '#ffffff',
+        location_border: 3,
+        location_hover_border: 4,
+        location_size: 30,
+        location_label: 'no',
+        label_color: '#ffffff',
+        label_hover_color: '#ffffff',
+        hide_labels: 'yes',
+        zoom: 'no',
+        popup_font: 'Inter, Arial, sans-serif'
+      },
+      state_specific: {},
+      locations,
+      labels: {},
+      regions: {},
+      data: {}
     };
-    return statusMap[status] || 'status-voluntary';
+
+    this.setupMapHooks();
+
+    if (typeof window.simplemaps_worldmap.load === 'function') {
+      window.simplemaps_worldmap.load();
+    } else if (typeof window.simplemaps_worldmap.refresh === 'function') {
+      window.simplemaps_worldmap.refresh();
+    }
+
+    this.hideFallback();
   }
 
-  setupAnimations() {
-    // Add pulsing animation to markers
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
+  createLocations() {
+    const locations = {};
+
+    this.countries.forEach((country, index) => {
+      const coords = this.getCoordinates(country.id);
+      if (!coords) {
+        console.warn(`Coordinates not found for country id: ${country.id}`);
+        return;
       }
-      
-      .country-marker {
-        animation: pulse 3s infinite;
+
+      const statusColor = this.statusColors[country.status] || '#9f7aea';
+      const borderColor = this.approachBorders[country.approach] || '#00d4ff';
+
+      locations[index] = {
+        name: country.name,
+        lat: coords.lat,
+        lng: coords.lng,
+        description: this.buildLocationDescription(country),
+        color: statusColor,
+        hover_color: statusColor,
+        opacity: 0.95,
+        size: this.getMarkerSize(country.category),
+        type: 'circle',
+        border_color: borderColor,
+        border: 3,
+        hover_border: 4,
+        url: `regulations.html#${this.createSlug(country.name)}`,
+        target: 'same_window'
+      };
+    });
+
+    return locations;
+  }
+
+  getMarkerSize(category) {
+    switch (category) {
+      case 'major-power':
+        return 50;
+      case 'regional-leader':
+        return 40;
+      default:
+        return 32;
+    }
+  }
+
+  buildLocationDescription(country) {
+    const statusLine = country.statusText || '';
+    const approachLine = country.approachText || '';
+    const legislation = Array.isArray(country.legislation) && country.legislation.length > 0
+      ? country.legislation[0].name
+      : null;
+
+    const highlights = Array.isArray(country.highlights)
+      ? country.highlights.slice(0, 2)
+      : [];
+
+    const details = [
+      statusLine ? `<p><strong>Status:</strong> ${statusLine}</p>` : '',
+      approachLine ? `<p><strong>Approach:</strong> ${approachLine}</p>` : '',
+      legislation ? `<p><strong>Key Legislation:</strong> ${legislation}</p>` : '',
+      country.penalties ? `<p><strong>Penalties:</strong> ${country.penalties}</p>` : '',
+      country.investment?.amount ? `<p><strong>Investment:</strong> ${country.investment.amount}</p>` : ''
+    ].filter(Boolean).join('');
+
+    const highlightsMarkup = highlights.length
+      ? `<ul>${highlights.map(item => `<li>${item}</li>`).join('')}</ul>`
+      : '';
+
+    return `
+      <div class="map-popup">
+        <h4>${country.name}</h4>
+        ${details}
+        ${highlightsMarkup}
+        <p class="map-popup-link">View full policy profile →</p>
+      </div>
+    `;
+  }
+
+  getCoordinates(id) {
+    const coordinates = {
+      usa: { lat: 38.0, lng: -97.0 },
+      eu: { lat: 50.1, lng: 10.0 },
+      china: { lat: 35.8, lng: 104.1 },
+      japan: { lat: 36.2, lng: 138.3 },
+      'south-korea': { lat: 36.5, lng: 127.8 },
+      singapore: { lat: 1.3521, lng: 103.8198 },
+      uk: { lat: 55.0, lng: -3.2 },
+      canada: { lat: 56.1, lng: -106.3 },
+      australia: { lat: -25.3, lng: 133.8 },
+      india: { lat: 20.6, lng: 78.9 },
+      brazil: { lat: -10.8, lng: -53.1 },
+      uae: { lat: 23.4, lng: 53.8 }
+    };
+
+    return coordinates[id] || null;
+  }
+
+  createSlug(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  setupMapHooks() {
+    const simpleMap = window.simplemaps_worldmap;
+    if (!simpleMap || !simpleMap.hooks) {
+      return;
+    }
+
+    simpleMap.hooks.click_location = id => {
+      const dataset = simpleMap.data?.locations || window.simplemaps_worldmap_mapdata?.locations || {};
+      const location = dataset?.[id];
+      if (location?.url) {
+        window.location.href = location.url;
       }
-      
-      .country-marker:hover {
-        animation: none;
+    };
+
+    simpleMap.hooks.over_location = id => {
+      const dataset = simpleMap.data?.locations || window.simplemaps_worldmap_mapdata?.locations || {};
+      const location = dataset?.[id];
+      if (location) {
+        this.mapContainer?.setAttribute('data-active-country', location.name);
       }
-      
-      @keyframes fadeIn {
-        from {
+    };
+
+    simpleMap.hooks.out_location = () => {
+      this.mapContainer?.removeAttribute('data-active-country');
+    };
+  }
+
+  showFallback(message) {
+    if (this.fallbackContainer) {
+      this.fallbackContainer.hidden = false;
+      if (message) {
+        const paragraph = this.fallbackContainer.querySelector('p');
+        if (paragraph) {
+          paragraph.textContent = message;
+        }
+      }
+    }
+
+    if (this.mapContainer) {
+      this.mapContainer.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  hideFallback() {
+    if (this.fallbackContainer) {
+      this.fallbackContainer.hidden = true;
+    }
+
+    if (this.mapContainer) {
+      this.mapContainer.removeAttribute('aria-hidden');
+    }
+  }
+}
+
+function bootstrapApp() {
+  const app = new AIGovernanceMap();
+  app.init();
+}
+
+document.addEventListener('DOMContentLoaded', bootstrapApp);
