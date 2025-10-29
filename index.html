@@ -22,6 +22,10 @@
             min-height: 100vh;
         }
 
+        body.menu-open {
+            overflow: hidden;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -324,10 +328,30 @@
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibGFuZEZpbGwiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNGE1NTY4O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMyZDM3NDg7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICAKICA8IS0tIEJhY2tncm91bmQgLS0+CiAgPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjMWExYzI5Ii8+CiAgCiAgPCEtLSBXb3JsZCBNYXAgU2ltcGxpZmllZCBDb250aW5lbnRzIC0tPgogIDxnIG9wYWNpdHk9IjAuMyI+CiAgICA8IS0tIE5vcnRoIEFtZXJpY2EgLS0+CiAgICA8cGF0aCBkPSJNMTAwIDEwMCBMMzUwIDEwMCBMMzgwIDIyMCBMMzQwIDI4MCBMMjAwIDI3MCBMMTIwIDIwMCBaIiBmaWxsPSJ1cmwoI2xhbmRGaWxsKSIgc3Ryb2tlPSIjMDBkNGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNiIvPgogICAgCiAgICA8IS0tIFNvdXRoIEFtZXJpY2EgLS0+CiAgICA8cGF0aCBkPSJNMjUwIDMyMCBMMzMwIDMyMCBMMzUwIDUwMCBMMjcwIDUyMCBMMjMwIDQ0MCBaIiBmaWxsPSJ1cmwoI2xhbmRGaWxsKSIgc3Ryb2tlPSIjMDBkNGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNiIvPgogICAgCiAgICA8IS0tIEV1cm9wZSAtLT4KICAgIDxwYXRoIGQ9Ik01MDAgODAgTDYwMCA4MCBMNjEwIDE2MCA1MzAgMTcwIEw0OTAgMTQwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgICAKICAgIDwhLS0gQWZyaWNhIC0tPgogICAgPHBhdGggZD0iTTQ5MCAxOTAgTDYzMCAxOTAgTDY1MCA0NTAgTDU3MCA0NzAgTDUxMCA0MDAgWiIgZmlsbD0idXJsKCNsYW5kRmlsbCkiIHN0cm9rZT0iIzAwZDRmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICAgIAogICAgPCEtLSBBc2lhIC0tPgogICAgPHBhdGggZD0iTTYzMCA2MCBMOTUwIDYwIEwxMDAwIDI1MCA5NTAgMzAwIEw2NTAgMjUwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgICAKICAgIDwhLS0gQXVzdHJhbGlhIC0tPgogICAgPHBhdGggZD0iTTg4MCA0MDAgTDEwMDAgNDAwIEwxMDIwIDQ4MCA5MDAgNDkwIFoiIGZpbGw9InVybCgjbGFuZEZpbGwpIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgPC9nPgogIAogIDwhLS0gR3JpZCBMaW5lcyAtLT4KICA8ZyBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMSI+CiAgICA8bGluZSB4MT0iMCIgeTE9IjE1MCIgeDI9IjEyMDAiIHkyPSIxNTAiLz4KICAgIDxsaW5lIHgxPSIwIiB5MT0iMzAwIiB4Mj0iMTIwMCIgeTI9IjMwMCIvPgogICAgPGxpbmUgeDE9IjAiIHkxPSI0NTAiIHgyPSIxMjAwIiB5Mj0iNDUwIi8+CiAgICA8bGluZSB4MT0iMzAwIiB5MT0iMCIgeDI9IjMwMCIgeTI9IjYwMCIvPgogICAgPGxpbmUgeDE9IjYwMCIgeTE9IjAiIHgyPSI2MDAiIHkyPSI2MDAiLz4KICAgIDxsaW5lIHgxPSI5MDAiIHkxPSIwIiB4Mj0iOTAwIiB5Mj0iNjAwIi8+CiAgPC9nPgo8L3N2Zz4=');
-            background-size: cover;
-            background-position: center;
-            background-color: #1a1c29;
+            background: linear-gradient(135deg, #101330 0%, #1b1f4a 50%, #101330 100%);
+        }
+
+        .world-map::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.18), transparent 45%),
+                        radial-gradient(circle at 80% 30%, rgba(138, 92, 246, 0.22), transparent 55%),
+                        radial-gradient(circle at 50% 80%, rgba(72, 187, 120, 0.18), transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .world-map-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            filter: drop-shadow(0 25px 45px rgba(10, 25, 59, 0.6));
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Country Markers */
@@ -697,6 +721,11 @@
             border-radius: 50%;
         }
 
+        .status-dot.status-active { background: linear-gradient(45deg, #48bb78, #38a169); }
+        .status-dot.status-implementing { background: linear-gradient(45deg, #ed8936, #dd6b20); }
+        .status-dot.status-planning { background: linear-gradient(45deg, #4299e1, #3182ce); }
+        .status-dot.status-voluntary { background: linear-gradient(45deg, #9f7aea, #805ad5); }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -829,15 +858,30 @@
 </head>
 <body>
     <!-- Navigation -->
-            <nav>
+    <nav>
         <div class="nav-container">
-            <div class="nav-logo">Global AI Governance Map</div>
+            <a href="#" class="nav-logo">Global AI Governance Map</a>
+            <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation" aria-controls="mobileMenu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="regulations.html">Regulations & Policies</a></li>
                 <li><a href="#timeline">Timeline</a></li>
                 <li><a href="#news">Updates</a></li>
-                <li><a href="https://techletter.co" target="_blank">TechLetter</a></li>
+                <li><a href="https://techletter.co" target="_blank" rel="noopener">TechLetter</a></li>
+            </ul>
+        </div>
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <button class="mobile-menu-close" type="button" aria-label="Close navigation">×</button>
+            <ul class="mobile-menu-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="regulations.html">Regulations & Policies</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#news">Updates</a></li>
+                <li><a href="https://techletter.co" target="_blank" rel="noopener">TechLetter</a></li>
             </ul>
         </div>
     </nav>
@@ -905,24 +949,8 @@
 
         <!-- World Map -->
         <div class="world-map-container">
-            <div class="world-map">
-                <!-- Major Powers -->
-                <div class="country-marker usa active innovation" data-country="United States">🇺🇸</div>
-                <div class="country-marker eu active comprehensive" data-country="European Union">🇪🇺</div>
-                <div class="country-marker china active state-led" data-country="China">🇨🇳</div>
-                
-                <!-- Regional Leaders -->
-                <div class="country-marker japan voluntary innovation" data-country="Japan">🇯🇵</div>
-                <div class="country-marker south-korea planning balanced" data-country="South Korea">🇰🇷</div>
-                <div class="country-marker singapore voluntary balanced" data-country="Singapore">🇸🇬</div>
-                <div class="country-marker uk implementing innovation" data-country="United Kingdom">🇬🇧</div>
-                <div class="country-marker canada implementing balanced" data-country="Canada">🇨🇦</div>
-                <div class="country-marker australia active balanced" data-country="Australia">🇦🇺</div>
-                
-                <!-- Emerging Leaders -->
-                <div class="country-marker india implementing balanced" data-country="India">🇮🇳</div>
-                <div class="country-marker brazil planning comprehensive" data-country="Brazil">🇧🇷</div>
-                <div class="country-marker uae active state-led" data-country="United Arab Emirates">🇦🇪</div>
+            <div class="world-map" id="policyMap" aria-live="polite">
+                <img src="assets/images/world-map.svg" alt="" class="world-map-background" loading="lazy" aria-hidden="true">
             </div>
         </div>
 
@@ -1031,203 +1059,9 @@
             </div>
         </div>
     </footer>
-
     <!-- Tooltip -->
-    <div class="tooltip" id="tooltip"></div>
+    <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
-    <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-        }
-
-        // Country data for tooltips
-        const countryData = {
-            'United States': {
-                status: 'Implementing - Innovation Dominance Strategy',
-                approach: 'Innovation-First',
-                legislation: 'America\'s AI Action Plan (90+ policies)',
-                penalties: 'None (Federal)',
-                investment: '$Billions in private sector',
-                details: 'Market-first approach emphasizing deregulation and export promotion.'
-            },
-            'European Union': {
-                status: 'Active - World\'s First Comprehensive AI Law',
-                approach: 'Comprehensive Regulation',
-                legislation: 'EU AI Act (Regulation 2024/1689)',
-                penalties: '€35M or 7% of global turnover',
-                investment: 'Regulatory focus',
-                details: 'Four-tier risk classification system with human-centric AI.'
-            },
-            'China': {
-                status: 'Active - State-Led Comprehensive Control',
-                approach: 'State-Led',
-                legislation: 'AI Development Plan 2030 + Generative AI Measures',
-                penalties: 'Variable enforcement',
-                investment: 'Massive state investment',
-                details: 'Algorithm registry with 238 services, content control.'
-            },
-            'Japan': {
-                status: 'Voluntary - Light-Touch Innovation Framework',
-                approach: 'Innovation-First',
-                legislation: 'AI Promotion Act (May 2025)',
-                penalties: 'None',
-                investment: 'Innovation focus',
-                details: 'First AI-specific legislation focused entirely on promoting innovation.'
-            },
-            'South Korea': {
-                status: 'Planning - First Comprehensive APAC Legislation',
-                approach: 'Balanced',
-                legislation: 'AI Framework Act (effective Jan 2026)',
-                penalties: 'Up to $21,000',
-                investment: 'Top 3 Global AI Strategy',
-                details: 'Risk-based framework targeting 70% corporate AI deployment by 2030.'
-            },
-            'Singapore': {
-                status: 'Voluntary - Technical Standards Leadership',
-                approach: 'Balanced',
-                legislation: 'Model AI Governance Framework (2024)',
-                penalties: 'None (Voluntary)',
-                investment: 'AI Verify Foundation',
-                details: 'World\'s first comprehensive AI governance testing toolkit.'
-            },
-            'United Kingdom': {
-                status: 'Implementing - Pro-Innovation Positioning',
-                approach: 'Innovation-First',
-                legislation: 'AI Opportunities Action Plan (Jan 2025)',
-                penalties: 'None (No new AI laws)',
-                investment: '£45+ billion',
-                details: 'Post-Brexit regulatory autonomy with AI Growth Zones.'
-            },
-            'Canada': {
-                status: 'Implementing - Public Service Modernization',
-                approach: 'Balanced',
-                legislation: 'AI Strategy for Federal Public Service 2025-2027',
-                penalties: 'Administrative (Government focus)',
-                investment: 'Federal modernization',
-                details: 'Most advanced government AI accountability framework globally.'
-            },
-            'Australia': {
-                status: 'Active - Mandatory Accountability Standards',
-                approach: 'Balanced',
-                legislation: 'Policy for Responsible Use of AI in Government',
-                penalties: 'Administrative enforcement',
-                investment: 'Government exemplar approach',
-                details: 'Mandatory Accountable Officials and public transparency statements.'
-            },
-            'India': {
-                status: 'Implementing - Inclusive Development Approach',
-                approach: 'Balanced',
-                legislation: 'IndiaAI Mission + AI Governance Guidelines',
-                penalties: 'Focus on harm mitigation',
-                investment: '₹10,372 crore',
-                details: '#AIForAll approach. 18,000 AI compute units.'
-            },
-            'Brazil': {
-                status: 'Planning - Risk-Based Enforcement Model',
-                approach: 'Comprehensive',
-                legislation: 'Senate-Approved AI Bill (Dec 2024)',
-                penalties: 'R$50M or 2% revenue',
-                investment: 'Santos Dumont supercomputer',
-                details: 'EU AI Act-similar framework with 3 risk tiers.'
-            },
-            'United Arab Emirates': {
-                status: 'Active - Government-Led Innovation',
-                approach: 'State-Led',
-                legislation: 'National AI Strategy 2031',
-                penalties: 'Government coordination',
-                investment: 'Comprehensive state planning',
-                details: 'World\'s first AI Minister (2017).'
-            }
-        };
-
-        // Tooltip functionality
-        const tooltip = document.getElementById('tooltip');
-        const markers = document.querySelectorAll('.country-marker');
-
-        markers.forEach(marker => {
-            marker.addEventListener('mouseenter', (e) => {
-                const country = e.target.getAttribute('data-country');
-                const data = countryData[country];
-                
-                if (data) {
-                    tooltip.innerHTML = `
-                        <h4>${country}</h4>
-                        <div class="status">
-                            <div class="status-dot ${e.target.classList.contains('active') ? 'active' : 
-                                e.target.classList.contains('implementing') ? 'implementing' : 
-                                e.target.classList.contains('planning') ? 'planning' : 'voluntary'}"></div>
-                            <span>${data.status}</span>
-                        </div>
-                        <p><strong>Approach:</strong> ${data.approach}</p>
-                        <p><strong>Key Legislation:</strong> ${data.legislation}</p>
-                        <p><strong>Investment:</strong> ${data.investment}</p>
-                        <p style="margin-top: 8px; font-size: 13px; color: #cbd5e0;">${data.details}</p>
-                    `;
-                    tooltip.classList.add('show');
-                }
-            });
-
-            marker.addEventListener('mousemove', (e) => {
-                tooltip.style.left = e.pageX + 15 + 'px';
-                tooltip.style.top = e.pageY - 10 + 'px';
-            });
-
-            marker.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('show');
-            });
-
-            marker.addEventListener('click', (e) => {
-                // Redirect to regulations page with country parameter
-                const country = e.target.getAttribute('data-country');
-                window.location.href = `regulations.html#${country.toLowerCase().replace(/\s+/g, '-')}`;
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Add pulsing animation to markers
-        function addPulseAnimation() {
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.1); }
-                    100% { transform: scale(1); }
-                }
-                
-                .country-marker {
-                    animation: pulse 3s infinite;
-                }
-                
-                .country-marker:hover {
-                    animation: none;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // Initialize animations
-        addPulseAnimation();
-
-        // Timeline scroll indicator
-        const timelineTrack = document.querySelector('.timeline-track');
-        if (timelineTrack) {
-            timelineTrack.addEventListener('scroll', () => {
-                const scrollPercentage = (timelineTrack.scrollLeft / (timelineTrack.scrollWidth - timelineTrack.clientWidth)) * 100;
-                // You can add a scroll indicator here if needed
-            });
-        }
-    </script>
+    <script type="module" src="src/js/app.js"></script>
 </body>
 </html>

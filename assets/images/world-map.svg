@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Stylized world map">
+  <defs>
+    <linearGradient id="ocean" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b193b" />
+      <stop offset="50%" stop-color="#122c5c" />
+      <stop offset="100%" stop-color="#0a193b" />
+    </linearGradient>
+    <linearGradient id="land" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3ac6ff" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="land-soft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#4c51bf" stop-opacity="0.7" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feBlend in="SourceGraphic" in2="blur" mode="screen" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#ocean)" />
+  <g fill="url(#land)" filter="url(#glow)" opacity="0.7">
+    <path d="M140 280C90 250 110 200 200 160C320 120 440 150 470 230C500 300 430 360 340 360C250 360 190 330 140 280Z" />
+    <path d="M340 380C390 400 430 470 400 520C370 570 300 560 270 500C240 440 280 360 340 380Z" />
+    <path d="M520 210C580 140 720 110 860 170C960 210 980 280 930 340C880 400 770 390 690 350C620 320 550 280 520 210Z" />
+    <path d="M600 340C660 360 710 430 680 500C660 540 600 540 570 480C540 420 550 360 600 340Z" />
+    <path d="M900 420C950 430 1010 470 980 520C950 570 870 550 840 500C810 450 850 410 900 420Z" />
+  </g>
+  <g fill="url(#land-soft)" opacity="0.45">
+    <path d="M170 250C140 210 200 160 300 150C400 140 470 190 480 250C490 310 410 340 330 330C250 320 200 300 170 250Z" />
+    <path d="M560 220C610 160 750 150 880 210C980 250 990 310 940 360C890 410 790 390 720 340C650 300 600 270 560 220Z" />
+    <path d="M630 360C680 370 730 430 710 490C690 540 630 530 600 470C570 410 580 350 630 360Z" />
+    <path d="M880 440C920 440 970 470 950 510C930 550 870 540 850 500C830 460 840 440 880 440Z" />
+  </g>
+  <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+    <line x1="0" y1="150" x2="1200" y2="150" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="450" x2="1200" y2="450" />
+    <line x1="300" y1="0" x2="300" y2="600" />
+    <line x1="600" y1="0" x2="600" y2="600" />
+    <line x1="900" y1="0" x2="900" y2="600" />
+  </g>
+</svg>
