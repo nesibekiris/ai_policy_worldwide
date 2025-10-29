@@ -906,6 +906,71 @@
         <!-- World Map -->
         <div class="world-map-container">
             <div class="world-map">
+                <svg class="world-map-graphic" viewBox="0 0 1200 600" role="img" aria-labelledby="world-map-title world-map-desc" focusable="false" preserveAspectRatio="xMidYMid meet">
+                    <title id="world-map-title">Original stylized world map</title>
+                    <desc id="world-map-desc">Custom, license-free illustration of the world's continents rendered with animated gradients to enhance the interactive AI policy markers.</desc>
+                    <defs>
+                        <radialGradient id="inlineOceanGradient" cx="50%" cy="50%" r="75%">
+                            <animate attributeName="cx" values="0.45;0.55;0.5;0.45" dur="14s" repeatCount="indefinite"></animate>
+                            <animate attributeName="cy" values="0.52;0.48;0.5;0.52" dur="16s" repeatCount="indefinite"></animate>
+                            <stop offset="0%" stop-color="#06182e"></stop>
+                            <stop offset="50%" stop-color="#0a2547"></stop>
+                            <stop offset="100%" stop-color="#0f325b"></stop>
+                        </radialGradient>
+
+                        <linearGradient id="inlineContinentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <animateTransform attributeName="gradientTransform" type="rotate" from="0 0.5 0.5" to="360 0.5 0.5" dur="26s" repeatCount="indefinite"></animateTransform>
+                            <stop offset="0%" stop-color="#3be0c4">
+                                <animate attributeName="stop-color" values="#3be0c4;#58c1ff;#3be0c4" dur="18s" repeatCount="indefinite"></animate>
+                            </stop>
+                            <stop offset="100%" stop-color="#1a7dd9">
+                                <animate attributeName="stop-color" values="#1a7dd9;#23a6ff;#1a7dd9" dur="18s" repeatCount="indefinite"></animate>
+                            </stop>
+                        </linearGradient>
+
+                        <linearGradient id="inlineIceGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#b5f0ff"></stop>
+                            <stop offset="100%" stop-color="#e7fbff"></stop>
+                        </linearGradient>
+
+                        <filter id="inlineContinentShadow" x="-5%" y="-5%" width="110%" height="110%">
+                            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#021225" flood-opacity="0.35"></feDropShadow>
+                        </filter>
+
+                        <pattern id="inlineLongitude" width="120" height="120" patternUnits="userSpaceOnUse">
+                            <path d="M0 0h120v120H0z" fill="none"></path>
+                            <path d="M60 0v120" stroke="rgba(255,255,255,0.06)" stroke-width="1"></path>
+                            <path d="M0 60h120" stroke="rgba(255,255,255,0.04)" stroke-width="1"></path>
+                        </pattern>
+                    </defs>
+
+                    <rect width="1200" height="600" fill="url(#inlineOceanGradient)"></rect>
+                    <rect width="1200" height="600" fill="url(#inlineLongitude)" opacity="0.4">
+                        <animate attributeName="x" values="0;-120" dur="20s" repeatCount="indefinite"></animate>
+                    </rect>
+
+                    <g filter="url(#inlineContinentShadow)" stroke="#0c2744" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" fill="url(#inlineContinentGradient)">
+                        <path d="M88 222C110 176 180 132 254 124C320 118 368 146 394 184C418 220 414 272 380 304C346 336 290 348 240 332C190 316 146 274 114 252C94 238 76 252 88 222Z"></path>
+                        <path d="M248 340C282 334 322 358 340 398C360 444 354 506 314 536C280 562 226 548 210 510C198 482 212 430 226 398C232 382 238 344 248 340Z"></path>
+                        <path d="M464 148C506 116 580 114 640 140C690 162 706 200 690 230C668 270 606 274 566 266C526 258 494 230 470 202C454 182 444 162 464 148Z"></path>
+                        <path d="M514 250C562 234 620 252 650 292C680 332 684 398 656 442C630 482 574 494 540 464C508 436 496 382 492 338C488 304 490 262 514 250Z"></path>
+                        <path d="M640 154C706 118 802 124 868 166C920 200 946 250 930 286C912 328 854 350 806 342C758 334 722 334 686 324C656 316 630 292 618 262C606 232 610 186 640 154Z"></path>
+                        <path d="M834 360C872 346 926 356 960 384C1000 418 998 464 960 488C922 510 868 500 844 470C820 440 802 376 834 360Z"></path>
+                        <path d="M180 520C320 494 520 490 680 502C840 514 988 538 1088 562L1096 592H108L100 546Z" fill="url(#inlineIceGradient)" stroke="#b3dff1" stroke-width="1.6"></path>
+                    </g>
+
+                    <g fill="rgba(255,255,255,0.35)">
+                        <circle cx="320" cy="160" r="10">
+                            <animate attributeName="opacity" values="0.2;0.6;0.2" dur="12s" repeatCount="indefinite"></animate>
+                        </circle>
+                        <circle cx="560" cy="200" r="8">
+                            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="10s" repeatCount="indefinite"></animate>
+                        </circle>
+                        <circle cx="760" cy="220" r="12">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="14s" repeatCount="indefinite"></animate>
+                        </circle>
+                    </g>
+                </svg>
                 <!-- Major Powers -->
                 <div class="country-marker usa active innovation" data-country="United States">🇺🇸</div>
                 <div class="country-marker eu active comprehensive" data-country="European Union">🇪🇺</div>

@@ -222,11 +222,51 @@ body {
 
 .world-map {
   width: 100%;
-  height: 600px;
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1c29 0%, #2d1b69 50%, #1a1c29 100%);
+  aspect-ratio: 2 / 1;
+  max-height: 600px;
+  background: radial-gradient(circle at 30% 35%, rgba(15, 46, 96, 0.85), rgba(5, 15, 31, 0.95));
+  isolation: isolate;
+}
+
+.world-map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(72, 190, 255, 0.32), transparent 62%),
+    radial-gradient(ellipse at 70% 65%, rgba(72, 255, 206, 0.24), transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  animation: aurora-shift 18s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.world-map-graphic {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes aurora-shift {
+  0% {
+    transform: translate3d(-4%, -3%, 0) scale(1.02);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(4%, 3%, 0) scale(1.08);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(-2%, -4%, 0) scale(1.02);
+    opacity: 0.35;
+  }
 }
 
 /* Country Markers */
@@ -243,7 +283,7 @@ body {
   transition: var(--transition-base);
   border: 3px solid rgba(255, 255, 255, 0.8);
   box-shadow: var(--shadow-lg);
-  z-index: 10;
+  z-index: 2;
   animation: pulse 3s infinite;
 }
 
@@ -545,7 +585,7 @@ body {
   }
   
   .world-map {
-    height: 400px;
+    max-height: 400px;
   }
   
   .country-details {
