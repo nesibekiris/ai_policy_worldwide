@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Simplified world map</title>
+  <desc id="desc">A minimal, stylized depiction of the continents used as a background reference for location markers.</desc>
+  <rect width="1200" height="600" fill="#e6f2ff" />
+  <g fill="#9ec5e5">
+    <path d="M80 270l35-20 40 10 30-40 60-25 50 5 20-20 60 10 70-20 40 15 50-5 45-30h45l35 20-5 35-55 30-35 50-30 20-20 40-50 10-35-20-40 10-60-15-30-40-60 25-35-10-20-45-40-15z" />
+    <path d="M460 180l40-40 60-20 40 20 45-15 40 10 65-15 50 10 45-10 35 25 25 5-5 45-40 35-25 50-55 30-65-10-40 10-45-25-30-55-45-35z" />
+    <path d="M760 370l40-45 55-10 45 20 25 45-20 35-45 20-40-5-30-40z" />
+    <path d="M940 200l45-20 60 25 40-20 35 20 30 40-10 40-35 30-30 35-40-5-20-40-45-30-30-30z" />
+    <path d="M1010 420l30-25 45-10 30 20 25 35-20 30-55 15-40-20z" />
+    <path d="M1080 510l25-15 30 5 20 25-20 20-35-5z" />
+  </g>
+</svg>
