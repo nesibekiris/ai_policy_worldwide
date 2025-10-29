@@ -4,8 +4,8 @@
   "description": "Interactive world map visualization of AI governance policies and regulations worldwide in 2025",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
-    "dev": "npx serve . --cors",
+    "start": "node server.js",
+    "dev": "node server.js",
     "build": "echo 'No build process needed for vanilla JS project'",
     "test": "echo 'Tests not implemented yet'",
     "deploy": "gh-pages -d .",
@@ -38,6 +38,9 @@
     "url": "https://github.com/your-username/global-ai-governance-map/issues"
   },
   "homepage": "https://your-username.github.io/global-ai-governance-map",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
   "devDependencies": {
     "eslint": "^8.57.0",
     "gh-pages": "^6.1.1",
